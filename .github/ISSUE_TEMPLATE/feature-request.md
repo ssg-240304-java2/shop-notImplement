@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea for this project
 title: "[Feature / NotImple]"
-labels: "Status: Todo, \U0001F41E Type: Bug"
+labels: 'Status: Todo, ✨ Type: Feature'
 assignees: ''
 
 ---
