@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/admDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <h2>상품 대시보드</h2>
+    <div class="content">
+        <div class="row">
+            <!-- Frist box -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-default">
+                    <div class="d-flex p-5 justify-content-between">
+                        <div class="icon-md bg-secondary rounded-circle mr-3">
+                            <i class="mdi mdi-account-plus-outline"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="h2 d-block">890</span>
+                            <p>New Users</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second box -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-default">
+                    <div class="d-flex p-5 justify-content-between">
+                        <div class="icon-md bg-success rounded-circle mr-3">
+                            <i class="mdi mdi-table-edit"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="h2 d-block">350</span>
+                            <p>Order Placed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third box -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-default">
+                    <div class="d-flex p-5 justify-content-between">
+                        <div class="icon-md bg-primary rounded-circle mr-3">
+                            <i class="mdi mdi-content-save-edit-outline"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="h2 d-block">1360</span>
+                            <p>Total Sales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth box -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-default">
+                    <div class="d-flex p-5 justify-content-between">
+                        <div class="icon-md bg-info rounded-circle mr-3">
+                            <i class="mdi mdi-bell"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="h2 d-block">$8930</span>
+                            <p>Monthly Revenue</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
