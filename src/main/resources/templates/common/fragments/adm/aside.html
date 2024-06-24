@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<aside th:fragment="asideFragment">
+  <div id="sidebar" class="sidebar sidebar-with-footer">
+    <!-- Aplication Brand -->
+    <div class="app-brand">
+      <a href="#">
+        <img src="../../../images/logo.png" alt="NotImplement">
+        <span class="brand-name">NotImplement</span>
+      </a>
+    </div>
+    <!-- begin sidebar scrollbar -->
+    <div class="sidebar-left" data-simplebar style="height: 100%;">
+      <!-- sidebar menu -->
+      <ul class="nav sidebar-inner" id="sidebar-menu">
+        <li class="active">
+          <a class="sidenav-item-link" href="/admin/main">
+            <i class="mdi mdi-briefcase-account-outline"></i>
+            <span class="nav-text">Home</span>
+          </a>
+        </li>
+
+        <!--  users      -->
+        <li class="has-sub">
+          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#users"
+             aria-expanded="false" aria-controls="users">
+            <i class="mdi mdi-email"></i>
+            <span class="nav-text">회원</span> <b class="caret"></b>
+          </a>
+          <ul class="collapse" id="users" data-parent="#sidebar-menu">
+            <div class="sub-menu">
+              <li>
+                <a class="sidenav-item-link" href="admin/manageUser">
+                  <span class="nav-text">회원 관리</span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </li>
+
+        <!--   Product     -->
+        <li class="has-sub">
+          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#product"
+             aria-expanded="false" aria-controls="product">
+            <i class="mdi mdi-image-filter-none"></i>
+            <span class="nav-text">상품</span> <b class="caret"></b>
+          </a>
+          <ul class="collapse" id="product" data-parent="#sidebar-menu">
+            <div class="sub-menu">
+              <li>
+                <a class="sidenav-item-link" href="/product/dashboard">
+                  <span class="nav-text">상품대시보드</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidenav-item-link" href="/product/list">
+                  <span class="nav-text">상품 목록</span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </li>
+
+        <!--  orders      -->
+        <li class="has-sub">
+          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#orders"
+             aria-expanded="false" aria-controls="users">
+            <i class="mdi mdi-image-filter-none"></i>
+            <span class="nav-text">주문대시보드</span> <b class="caret"></b>
+          </a>
+          <ul class="collapse" id="orders" data-parent="#sidebar-menu">
+            <div class="sub-menu">
+              <li>
+                <a class="sidenav-item-link" href="#">
+                  <span class="nav-text">주문정보조회</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidenav-item-link" href="#">
+                  <span class="nav-text">환불목록조회</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidenav-item-link" href="#">
+                  <span class="nav-text">주문렌탈/상태조회</span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </li>
+
+        <!--    delivery    -->
+        <li class="has-sub">
+          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#delivery"
+             aria-expanded="false" aria-controls="users">
+            <i class="mdi mdi-image-filter-none"></i>
+            <span class="nav-text">주문/배송</span> <b class="caret"></b>
+          </a>
+          <ul class="collapse" id="delivery" data-parent="#sidebar-menu">
+            <div class="sub-menu">
+              <li>
+                <a class="sidenav-item-link" href="email-inbox.html">
+                  <span class="nav-text">배송조회/관리</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidenav-item-link" href="email-details.html">
+                  <span class="nav-text">환불관리</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidenav-item-link" href="email-compose.html">
+                  <span class="nav-text">반납 관리</span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </li>
+
+        <!--  board      -->
+        <li class="has-sub">
+          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#board"
+             aria-expanded="false" aria-controls="board">
+            <i class="mdi mdi-image-filter-none"></i>
+
+            <span class="nav-text">게시판 관리</span> <b class="caret"></b>
+          </a>
+          <ul class="collapse" id="board" data-parent="#sidebar-menu">
+            <div class="sub-menu">
+              <li>
+                <a class="sidenav-item-link" href="email-inbox.html">
+                  <span class="nav-text">1:1 문의 관리</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidenav-item-link" href="email-details.html">
+                  <span class="nav-text">상품리뷰 관리</span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>
+</body>
+</html>
