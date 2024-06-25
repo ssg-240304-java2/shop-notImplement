@@ -1,13 +1,12 @@
 package com.ohgiraffers.notimplement.product.controller;
 
-import com.ohgiraffers.notimplement.product.model.dto.DashBoardResponse;
+import com.ohgiraffers.notimplement.product.model.dto.DashboardResponse;
 import com.ohgiraffers.notimplement.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/product")
@@ -22,9 +21,9 @@ public class ProductController {
     @GetMapping("dashboard")
     public String productDashboard(Model model) {
         log.info("dashboard In");
-        DashBoardResponse dashBoardResponse = productService.showDashboard();
-        int allProductCount = dashBoardResponse.allProductCount();
-        int soldOutProductCount = dashBoardResponse.soldOutProductCount();
+        DashboardResponse dashboardResponse = productService.showDashboard();
+        int allProductCount = dashboardResponse.allProductCount();
+        int soldOutProductCount = dashboardResponse.soldOutProductCount();
 
         int reservedProductCount = allProductCount - soldOutProductCount;
 
