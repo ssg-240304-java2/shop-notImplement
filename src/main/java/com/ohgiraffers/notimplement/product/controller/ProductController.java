@@ -21,4 +21,10 @@ public class ProductController {
         log.info("list In");
         return "adminPage/product/productList";
     }
+
+    @GetMapping("userlist")
+    public String userProductList() {
+        log.info("list In");
+        return "userPage/product/productList";
+    }
 }
