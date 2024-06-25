@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService {
     public int getAvailablePoint(int userId) {
         return userMapper.getAvailablePoint(userId);
     }
+
+    @Override
+    public int getReturningPoint(int userId) {
+        return userMapper.getReturningPoint(userId);
+    }
 }

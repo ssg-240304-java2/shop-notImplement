@@ -30,8 +30,11 @@ public class UserController {
 
         // 데이터 베이스에서 고객의 사용 가능한 적립금 계산해서 반환
         int availablePoint = userService.getAvailablePoint(userId);
-
         model.addAttribute("availablePoint", availablePoint);
+
+        int returningPoint = userService.getReturningPoint(userId);
+        model.addAttribute("returningPoint", returningPoint);
+
         return "userPage/point/point";
     }
 }

@@ -10,4 +10,16 @@
         FROM POINT
         WHERE USER_SEQ=#{userId}
     </select>
+
+    <select id="getReturningPoint">
+        SELECT
+        sum(op.order_item_price*op.order_item_amount)
+        FROM reasons_for_refund rfr
+        JOIN `order` o ON o.order_seq=rfr.order_seq
+        JOIN order_product op ON o.order_seq=op.order_seq
+        WHERE
+        rfr.refund_complete_date IS NOT NULL
+        AND
+        o.user_seq=#{userId};
+    </select>
 </mapper>
