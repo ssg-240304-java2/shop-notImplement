@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #pointInfo {
+            padding-top: 200px;
+        }
+
+        section#pointInfo > div.container {
+            background: lightgrey;
+            padding: 30px;
+        }
+
+        section#pointInfo > div.container > div {
+            align-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <section id="pointInfo" class="padding-large">
+        <div class="container">
+            <h2>적립금</h2>
+            <hr>
+            <div>
+                <span class="data">
+                <strong class="title">사용가능 적립금</strong>
+                    <span th:text="${availablePoint}"></span>원
+                </span>
+                <span class="data">
+                <strong class="title">환불예정 적립금</strong>
+                    <span th:text="${returningPoint}"></span>원
+                </span>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
