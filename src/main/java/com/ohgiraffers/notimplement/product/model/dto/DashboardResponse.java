@@ -1,6 +1,6 @@
 package com.ohgiraffers.notimplement.product.model.dto;
 
-public record DashBoardResponse(
+public record DashboardResponse(
         int allProductCount,
         int soldOutProductCount
 ) {
