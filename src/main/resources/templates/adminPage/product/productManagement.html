@@ -39,6 +39,16 @@
                     </div>
                     <div class="card-body">
                         <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                            <colgroup>
+                                <col span="1" style="width: 3%">
+                                <col span="1" style="width: 7%">
+                                <col span="1" style="width: 30%">
+                                <col span="1" style="width: 10%">
+                                <col span="1" style="width: 5%">
+                                <col span="1" style="width: 15%">
+                                <col span="1" style="width: 15%">
+                                <col span="1" style="width: 10%">
+                            </colgroup>
                             <thead>
                             <tr>
                                 <th>번호</th>
@@ -54,14 +64,14 @@
                             </thead>
                             <tbody>
                             <tr th:each="product : ${products}">
-                                <td th:text="${product.getProductSeq()}"></td>
-                                <td th:text="${product.getProductBrand()}"></td>
-                                <td th:text="${product.getProductName()}"></td>
-                                <td th:text="${product.getProductPrice()}"></td>
-                                <td th:text="${product.getProductAmount()}"></td>
-                                <td th:text="${product.getProductStatus().getTitle()}"></td>
-                                <td th:text="${product.getRegDate()}"></td>
-                                <td>수정일</td>
+                                <td th:text="${product.productSeq()}" class="text-md-center"></td>
+                                <td th:text="${product.productBrand()}"></td>
+                                <td th:text="${product.productName()}"></td>
+                                <td th:text="${product.productPrice()}"></td>
+                                <td th:text="${product.productAmount()}"></td>
+                                <td th:text="${product.productStatus()}"></td>
+                                <td th:text="${product.regDate()}"></td>
+                                <td th:text="${product.updateDate()}">수정일</td>
                                 <td>
                                     <button class="delete-button" onclick="confirmDelete()">삭제</button>
                                 </td>

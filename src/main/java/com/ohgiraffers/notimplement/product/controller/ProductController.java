@@ -2,6 +2,7 @@ package com.ohgiraffers.notimplement.product.controller;
 
 import com.ohgiraffers.notimplement.product.model.domain.Product;
 import com.ohgiraffers.notimplement.product.model.dto.DashboardResponse;
+import com.ohgiraffers.notimplement.product.model.dto.ProductResponse;
 import com.ohgiraffers.notimplement.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/management")
     public String productList(Model model) {
-        List<Product> products = productService.findAllProduct();
+        List<ProductResponse> products = productService.findAllProduct();
 
         model.addAttribute("products", products);
 

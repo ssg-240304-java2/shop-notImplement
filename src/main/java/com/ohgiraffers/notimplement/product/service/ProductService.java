@@ -3,6 +3,7 @@ package com.ohgiraffers.notimplement.product.service;
 import com.ohgiraffers.notimplement.product.model.dao.ProductMapper;
 import com.ohgiraffers.notimplement.product.model.domain.Product;
 import com.ohgiraffers.notimplement.product.model.dto.DashboardResponse;
+import com.ohgiraffers.notimplement.product.model.dto.ProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,10 @@ public class ProductService {
         return new DashboardResponse(allProductCount, soldOutProductCount);
     }
 
-    public List<Product> findAllProduct() {
-        return productMapper.findAllProduct();
+    public List<ProductResponse> findAllProduct() {
+        return productMapper.findAllProduct()
+                .stream()
+                .map(ProductResponse::from)
+                .toList();
     }
 }
