@@ -19,8 +19,7 @@ public class ProductService {
     public DashboardResponse showDashboard() {
         int allProductCount = productMapper.allProductCount();
         int soldOutProductCount = productMapper.soldOutProductCount();
-
-        return new DashboardResponse(allProductCount, soldOutProductCount);
+        return new DashboardResponse(allProductCount, soldOutProductCount, allProductCount - soldOutProductCount);
     }
 
     public List<ProductResponse> findAllProduct() {
@@ -28,5 +27,9 @@ public class ProductService {
                 .stream()
                 .map(ProductResponse::from)
                 .toList();
+    }
+
+    public void delete(long productId) {
+        productMapper.delete(productId);
     }
 }

@@ -14,4 +14,6 @@ public interface ProductMapper {
     int soldOutProductCount();
 
     List<Product> findAllProduct();
+
+    void delete(long productId);
 }
