@@ -2,3 +2,13 @@ spring:
   application:
     name: notImplement
 
+  # driver config
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://ssg-java2.iptime.org:3306/notimpldb
+    username: notimpl
+    password: notimpl
+
+# mybatis config
+mybatis:
+  mapper-locations: mappers/**/*.xml
