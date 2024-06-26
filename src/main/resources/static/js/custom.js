@@ -375,15 +375,15 @@ $(document).ready(function () {
       info: false,
       lengthChange: false,
       lengthMenu: [
-        [5, 10, 15, -1],
-        [5, 10, 15, "All"],
+        [10, 20, 30, -1],
+        [10, 20, 30, "All"],
       ],
       scrollX: true,
       order: [[2, "asc"]],
       columnDefs: [
         {
           orderable: false,
-          targets: [, 0, 6, -1],
+          targets: [8],
         },
       ],
       language: {
