@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/admDefault}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1:1문의 관리</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header">
+                <h2>1:1 문의 조회</h2>
+            </div>
+            <div class="card-body">
+                <form action="/admin/inquiry">
+                    <table class="table table-bordered">
+                        <tbody class="thead-light">
+                        <tr>
+                            <th class="text-center">문의 등록일자</th>
+                            <td colspan="3">
+                                <div class="form-inline">
+                                    <div class="input-group js-datepicker">
+                                        <input type="text" class="form-control width-xs" name="strDate" placeholder="yyyy-MM-dd 형식으로 입력해주세요.">
+                                        <span class="input-group-addon">
+                                            <span class="btn-icon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    ~
+                                    <div class="input-group js-datepicker">
+                                        <input type="text" class="form-control width-xs" name="endDate" placeholder="yyyy-MM-dd 형식으로 입력해주세요.">
+                                        <span class="input-group-addon">
+                                            <span class="btn-icon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="js-if-bdGoodsPtFl">
+                            <th class="text-center">답변상태</th>
+                            <td colspan="3">
+                                <div class="form-inline">
+                                    <select name="status" class="form-control">
+                                        <option value="">=전체=</option>
+                                        <option value="1">답변대기</option>
+                                        <option value="2">답변완료</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary m-3">검색</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="card card-default">
+            <div class="card-header">
+                <h2>1:1 문의 목록</h2>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">문의 카테고리</th>
+                            <th class="text-center">문의 제목</th>
+                            <th class="text-center">작성자 ID</th>
+                            <th class="text-center">문의 등록일</th>
+                            <th class="text-center">답변 상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="board, index : ${boardList}">
+                            <td class="text-center" th:text="${index.count}">1</td>
+                            <td class="text-center" th:text="${board.getBoardCategory()}">Lucia</td>
+                            <td class="text-center"><a th:href="@{/admin/inquiry/{boardSeq}(boardSeq=${board.getBoardSeq()})}">[[${board.getBoardTitle()}]]</a></td>
+                            <td class="text-center" th:text="${board.getUserId()}">@Lucia</td>
+                            <td class="text-center" th:text="${board.getRegDate()}"></td>
+                            <td class="text-center" th:if="${board.getAnswer() == null}">답변 대기</td>
+                            <td class="text-center" th:unless="${board.getAnswer() == null}">답변 완료</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
