@@ -29,13 +29,13 @@
                 <tbody>
 
                 <tr th:each="delivery: ${deliveryList}">
-                    <td th:text="${delivery.orderSeq}">Coach Swagger</td>
-                    <td th:text="${delivery.orderDate}">27</td>
-                    <td th:text="${delivery.userName}">2</td>
-                    <td th:text="${delivery.orderItemName}">1</td>
-                    <td th:text="${delivery.orderPrice}">4</td>
-                    <td th:text="${delivery.orderStatus}">24541</td>
-                    <td th:text="${delivery.deliveryStatus}">1</td>
+                    <td th:text="${delivery.orderSeq}"></td>
+                    <td th:text="${delivery.orderDate}"></td>
+                    <td th:text="${delivery.userName}"></td>
+                    <td th:text="${delivery.orderItemName}"></td>
+                    <td th:text="${delivery.orderPrice}+' 원'"></td>
+                    <td th:text="${delivery.orderStatus}"></td>
+                    <td th:text="${delivery.deliveryStatus}"></td>
                     <td>
                         <div class="dropdown">
                             <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink"
