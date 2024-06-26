@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>포인트 환급</title>
+    <style>
+        html {
+            background: lightgray;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        header {
+            padding: 10px;
+            background: white;
+            width: 100vw;
+            height: 60px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .container {
+            margin: 0 auto;
+            background: white;
+            width: 50vw;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>포인트 환급</h1>
+</header>
+<div class="container">
+    <div>
+        <h1>계좌번호로 환급받기</h1>
+        <select name="bank" id="bank">
+            <option>하나은행</option>
+            <option>국민은행</option>
+            <option>농협은행</option>
+        </select>
+
+        <input type="text" placeholder="계좌번호를 입력하세요(- 제외)">
+        <button onclick="location.href='/user/refundAmount'">확인</button>
+    </div>
+</div>
+</body>
+</html>

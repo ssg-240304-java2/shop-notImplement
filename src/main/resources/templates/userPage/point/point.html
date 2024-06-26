@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         #pointInfo {
             padding-top: 200px;
@@ -16,16 +17,32 @@
             padding: 30px;
         }
 
-        section#pointInfo > div.container > div {
-            align-content: space-between;
+        section#pointInfo > div.container > div:last-child {
+            display: flex;
+            justify-content: space-around;
         }
+
+        #titleContainer {
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
 </head>
 <body>
 <div layout:fragment="content">
     <section id="pointInfo" class="padding-large">
         <div class="container">
-            <h2>적립금</h2>
+            <div id="titleContainer">
+                <h2 id="pointTitle">적립금</h2>
+                <button id="refundBtn">환급신청</button>
+            </div>
+            <script>
+                $('#refundBtn').click(function () {
+                    window.close();
+                    window.open(location.href = "/user/pointRefund");
+                })
+            </script>
             <hr>
             <div>
                 <span class="data">

@@ -10,4 +10,13 @@
         FROM POINT
         WHERE USER_SEQ=#{userId}
     </select>
+
+    <insert id="refundPoint">
+        <if test="getAvailablePoint >= point and point > 0">
+            INSERT INTO
+            point (point_amount, point_date, user_seq)
+            VALUES
+            (#{point}*(-1), NOW(), #{userId})
+        </if>
+    </insert>
 </mapper>
