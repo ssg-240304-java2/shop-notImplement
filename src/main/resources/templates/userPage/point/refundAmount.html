@@ -1,0 +1,94 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>포인트 환급</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        html {
+            background: lightgray;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        header {
+            padding: 10px;
+            background: white;
+            width: 100vw;
+            height: 60px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            margin: 0 auto;
+            background: white;
+            width: 50vw;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+            align-self: flex-start;
+        }
+
+        #availablePoint {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid black;
+            border-radius: 4px;
+            padding: 20px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>포인트 환급</h1>
+</header>
+<div class="container">
+
+    <h1>금액 입력</h1>
+    <input id="pointAmount" type="text" style="border: none; border-bottom: 1px solid black;"
+           placeholder="금액을 입력하세요">
+    <h2>출금 가능 금액</h2>
+    <div id="availablePoint">
+        <h3>적립금</h3><span th:text="${availablePoint}+'원'"></span>
+    </div>
+    <button id="confirm">확인</button>
+
+    <script>
+        $('#confirm').click(function () {
+            const point = $("#pointAmount").val();
+
+            $.ajax({
+                url: "/user/refundPointConfirm",
+                type: "post",
+                data: {point},
+                success: function (data) {
+                    alert(data);
+                    // alert("환급 성공!!");
+                    window.close();
+                    window.open(location.href = "/user/point");
+                },
+                error: function (error) {
+                    alert("환급 실패!!");
+                    window.close();
+                    window.open(location.href = "/user/point");
+                }
+
+            })
+        })
+    </script>
+</div>
+</body>
+</html>
