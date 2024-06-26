@@ -13,7 +13,7 @@
 
     <select id="getReturningPoint">
         SELECT
-        sum(op.order_item_price*op.order_item_amount)
+        IFNULL(sum(op.order_item_price*op.order_item_amount), 0)
         FROM reasons_for_refund rfr
         JOIN `order` o ON o.order_seq=rfr.order_seq
         JOIN order_product op ON o.order_seq=op.order_seq
