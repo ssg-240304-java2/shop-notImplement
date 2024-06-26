@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.notimplement.delivery.model.dao.DeliveryMapper">
+
+    <resultMap id="deliveryResultMap" type="com.ohgiraffers.notimplement.delivery.model.dto.DeliveryDTO">
+        <id property="orderSeq" column="order_seq"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="userSeq" column="user_seq"/>
+        <result property="userName" column="user_name"/>
+        <result property="deliveryStatus" column="delivery_status"/>
+        <result property="orderItemName" column="order_item_name"/>
+        <result property="orderPrice" column="order_price"/>
+    </resultMap>
+
+    <select id="getAllDeliveryList" resultMap="deliveryResultMap">
+        SELECT
+        o.order_seq,
+        o.order_status,
+        o.order_date,
+        u.user_seq,
+        u.user_name,
+        d.delivery_status,
+        op.order_item_name,
+        op.order_item_price*op.order_item_amount AS "order_price"
+        FROM
+        `order` o
+        LEFT JOIN `user` u ON o.user_seq=u.user_seq
+        LEFT JOIN `delivery` d ON d.order_seq=o.order_seq
+        LEFT JOIN `order_product` op ON op.order_seq=o.order_seq
+        LIMIT #{startRow}, #{limit}
+    </select>
+
+    <select id="getTotalCount">
+        select count(*) from `order`;
+    </select>
+</mapper>

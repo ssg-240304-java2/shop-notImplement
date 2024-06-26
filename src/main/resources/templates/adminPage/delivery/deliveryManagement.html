@@ -1,0 +1,101 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/admDefault}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery Management</title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div class="card card-default">
+        <div class="card-header">배송 관리</div>
+        <div class="card-body">
+            <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                <thead>
+                <tr>
+                    <th>주문 번호</th>
+                    <th>주문일</th>
+                    <th>주문자</th>
+                    <th>주문 상품</th>
+                    <th>결제 금액</th>
+                    <th>주문 상태</th>
+                    <th>배송 상태</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="delivery: ${deliveryList}">
+                    <td th:text="${delivery.orderSeq}">Coach Swagger</td>
+                    <td th:text="${delivery.orderDate}">27</td>
+                    <td th:text="${delivery.userName}">2</td>
+                    <td th:text="${delivery.orderItemName}">1</td>
+                    <td th:text="${delivery.orderPrice}">4</td>
+                    <td th:text="${delivery.orderStatus}">24541</td>
+                    <td th:text="${delivery.deliveryStatus}">1</td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 페이지 처리 -->
+            <div class="card card-default align-items-center">
+                <div class="card-body">
+                    <ul class="pagination pagination-flat pagination-flat-rounded">
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Previous" disabled="disabled"
+                               th:if="${selectCriteria.pageNo == 1}">
+                                <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="page-link" aria-label="Previous"
+                               th:if="${selectCriteria.pageNo != 1}"
+                               th:onclick="'location.href=\'/admin/delivery?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''">
+                                <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <ul th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                            <li class="page-item active">
+                                <a class="page-link" th:text="${ page }"
+                                   th:onclick="'location.href=\'/admin/delivery?currentPage='+ @{${page}} + '\''"
+                                   th:disabled="${ selectCriteria.pageNo eq page }"></a>
+                            </li>
+                        </ul>
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Next" disabled="disabled"
+                               th:if="${selectCriteria.pageNo == selectCriteria.maxPage}">
+                                <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            <a class="page-link" aria-label="Next"
+                               th:onclick="'location.href=\'/admin/delivery?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                               th:if="${selectCriteria.pageNo != selectCriteria.maxPage}">
+                                <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
