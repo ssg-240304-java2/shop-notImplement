@@ -29,7 +29,7 @@ public class DeliveryController {
         int totalDeliveryCount = deliveryService.getTotalCount();
 
         // 한 페이지에 보여줄 게시물 수
-        int limit = 5;
+        int limit = 10;
 
         // 한번에 보여질 페이징 버튼의 개수
         int buttonAmount = 5;
