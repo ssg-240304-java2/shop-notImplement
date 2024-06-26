@@ -4,6 +4,19 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ohgiraffers.notimplement.product.model.dao.ProductMapper">
 
+    <resultMap id="productResultMap" type="com.ohgiraffers.notimplement.product.model.domain.Product">
+        <id property="productSeq" column="product_seq"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="productBrand" column="product_brand"/>
+        <result property="productName" column="product_name"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productDescription" column="product_description"/>
+        <result property="productAmount" column="product_amount"/>
+        <result property="productStatus" column="product_status"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
     <select id="allProductCount" resultType="_int">
         select count(distinct product_name)
         from product;
@@ -14,4 +27,27 @@
         from product
         where product_amount = 0;
     </select>
+
+    <select id="findAllProduct" resultMap="productResultMap">
+        select
+            product_seq,
+            category_code,
+            product_brand,
+            product_name,
+            product_price,
+            product_description,
+            product_amount,
+            product_status,
+            reg_date,
+            update_date
+        from product
+        order by product_seq;
+    </select>
+
+    <delete id="delete" parameterType="long">
+        delete
+        from product
+        where product_seq = #{productId}
+    </delete>
+
 </mapper>

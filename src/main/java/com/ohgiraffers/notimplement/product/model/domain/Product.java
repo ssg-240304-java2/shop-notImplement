@@ -5,20 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class Product {
-    private int product_seq;
-    private int category_code;
-    private String product_brand;
-    private String product_name;
-    private int product_price;
-    private String product_description;
-    private int product_amount;
-    private ProductStatus product_status;
-    private LocalDateTime reg_date;
-    private LocalDateTime update_date;
-
+    private int productSeq;
+    private int categoryCode;
+    private String productBrand;
+    private String productName;
+    private int productPrice;
+    private String productDescription;
+    private int productAmount;
+    private ProductStatus productStatus;
+    private LocalDateTime regDate;
+    private LocalDateTime updateDate;
 }
