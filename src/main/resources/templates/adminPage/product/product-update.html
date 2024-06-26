@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/admDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 등록</title>
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 화면의 전체 높이를 차지하도록 설정 */
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 600px; /* 폼의 최대 너비를 설정 */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+            border-radius: 10px; /* 둥근 모서리 */
+            background-color: #fff; /* 배경색 흰색 */
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: center; /* 수평 중앙 정렬 */
+            gap: 10px; /* 버튼 간의 간격 */
+            margin-top: 6rem; /* 기존의 mt-6 값을 유지 */
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <form th:action="@{'/product/' + ${productResponse.sequence()} + '/update'}" th:object="${productRequest}" method="post" class="col-md-6 form-container">
+        <div class="form-group">
+            <label for="categoryId">상품 카테고리 선택</label>
+            <select class="form-control" id="categoryId" name="categoryId">
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == productResponse.categoryCode}"/>
+                </th:block>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="brand">브랜드</label>
+            <input type="text" class="form-control" id="brand" name="brand" th:value="${productResponse.brand()}" placeholder="브랜드를 입력하세요.">
+            <span class="mt-2 d-block">설명이 나오네요</span>
+        </div>
+
+        <div class="form-group">
+            <label for="name">상품명</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${productResponse.name()}" placeholder="상품명을 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label for="price">상품 가격</label>
+            <input type="number" class="form-control" id="price" name="price" th:value="${productResponse.price()}" placeholder="상품 가격을 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label for="amount">상품 수량</label>
+            <input type="number" class="form-control" id="amount" name="amount" th:value="${productResponse.amount()}" placeholder="수량을 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label for="description">상품 상세 설명</label>
+            <textarea class="form-control" id="description" name="description" th:text="${productResponse.description()}" rows="3"></textarea>
+        </div>
+
+        <div class="form-footer mt-6">
+            <button type="submit" class="btn btn-primary btn-pill" id="btnSave">상품 수정</button>
+        </div>
+    </form>
+    <script>
+        document.getElementById("btnCancel").addEventListener('click',function(event){
+            event.preventDefault();
+            location.href = '/product/management';
+        });
+    </script>
+</div>
+</body>
+</html>

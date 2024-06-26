@@ -1,21 +1,20 @@
 package com.ohgiraffers.notimplement.product.controller;
 
-import com.ohgiraffers.notimplement.product.model.domain.Product;
 import com.ohgiraffers.notimplement.product.model.dto.DashboardResponse;
+import com.ohgiraffers.notimplement.product.model.dto.ProductCreateRequest;
 import com.ohgiraffers.notimplement.product.model.dto.ProductResponse;
+import com.ohgiraffers.notimplement.product.model.dto.ProductUpdateRequest;
 import com.ohgiraffers.notimplement.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Controller
-@RequestMapping("/product")
 @Slf4j
+@RequestMapping("/product")
+@Controller
 public class ProductController {
     private final ProductService productService;
 
@@ -41,10 +40,37 @@ public class ProductController {
         return "adminPage/product/productManagement";
     }
 
+    @GetMapping("/save")
+    public String save(Model model) {
+        model.addAttribute("categories", productService.getCategories());
+        model.addAttribute("product", ProductCreateRequest.EMPTY);
+        return "adminPage/product/product-save";
+    }
 
-    @GetMapping("userlist")
-    public String userProductList() {
-        log.info("list In");
-        return "userPage/product/productList";
+    @PostMapping("/save")
+    public String save(@ModelAttribute ProductCreateRequest request) {
+        log.info("Saving product {}", request);
+        productService.saveProduct(request);
+        return "redirect:/product/management";
+    }
+
+    @GetMapping("/{productId}/update")
+    public String update(@PathVariable int productId, Model model) {
+        ProductResponse response = productService.getById(productId);
+
+        model.addAttribute("categories", productService.getCategories());
+        model.addAttribute("productResponse", response);
+        model.addAttribute("productRequest", ProductUpdateRequest.EMPTY);
+        return "adminPage/product/product-update";
+    }
+
+    @PostMapping("/{productId}/update")
+    public String update(
+            @PathVariable int productId,
+            @ModelAttribute ProductUpdateRequest request
+    ) {
+        log.info("Updating product {}", request);
+        productService.update(productId, request);
+        return "redirect:/product/management";
     }
 }
