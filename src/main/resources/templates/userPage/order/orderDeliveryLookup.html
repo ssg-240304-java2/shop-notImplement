@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userDefault}">
+<head>
+  <meta charset="UTF-8">
+  <title>주문 배송 조회</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    a {
+      color: purple;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h1>주문배송조회시 주문번호와 상태를 정확히 확인하세요. 배송추적링크를 통해 실시간으로 위치를 확인할 수 있습니다</h1>
+  <table>
+      <thead>
+      <th>유저seq</th>
+      <th>베송상태</th>
+      <th>주문날짜</th>
+      <th>주문번호</th>
+      <th>제품번호</th>
+      <th>제품명</th>
+      <th>제품설명</th>
+      <th>등록일</th>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orderDeliveryList}">
+      <td th:text="${order.userSeq}"></td>
+      <td th:text="${order.orderStatus}"></td>
+      <td th:text="${order.orderDate}"></td>
+      <td th:text="${order.orderNo}"></td>
+      <td th:text="${order.productSeq}"></td>
+        <td th:text="${order.productName}"></td>
+      <td th:text="${order.productDescription}"></td>
+      <td th:text="${order.regDate}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
