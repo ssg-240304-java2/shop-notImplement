@@ -1,8 +1,9 @@
 package com.ohgiraffers.notimplement.product.service;
 
 import com.ohgiraffers.notimplement.product.model.dao.ProductMapper;
-import com.ohgiraffers.notimplement.product.model.domain.Product;
+import com.ohgiraffers.notimplement.product.model.dto.CategoryResponse;
 import com.ohgiraffers.notimplement.product.model.dto.DashboardResponse;
+import com.ohgiraffers.notimplement.product.model.dto.ProductRequest;
 import com.ohgiraffers.notimplement.product.model.dto.ProductResponse;
 import org.springframework.stereotype.Service;
 
@@ -32,4 +33,24 @@ public class ProductService {
     public void delete(long productId) {
         productMapper.delete(productId);
     }
+
+    public void saveProduct(ProductRequest productRequest) {
+        productMapper.save(productRequest.toEntity());
+    }
+
+    public void update(ProductRequest productRequest) {
+        productMapper.update(productRequest.toEntity());
+    }
+
+    public List<CategoryResponse> getCategories() {
+        return productMapper.findCategories();
+    }
+
+//    public List<ProductResponse> findUserProduct() {
+//        return productMapper.findUserProduct()
+//                .stream()
+//                .map(product -> ProductResponse.from(product))
+//                .toList();
+
+//    }
 }

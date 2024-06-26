@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/admDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 수정</title>
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 화면의 전체 높이를 차지하도록 설정 */
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 600px; /* 폼의 최대 너비를 설정 */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+            border-radius: 10px; /* 둥근 모서리 */
+            background-color: #fff; /* 배경색 흰색 */
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: center; /* 수평 중앙 정렬 */
+            gap: 10px; /* 버튼 간의 간격 */
+            margin-top: 6rem; /* 기존의 mt-6 값을 유지 */
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <form class="col-md-6 form-container">
+
+        <div class="form-group">
+            <label for="productCategory">상품 카테고리 선택</label>
+            <select class="form-control" id="productCategory">
+                <option>노트북</option>
+                <option>태블릿</option>
+                <option>핸드폰</option>
+                <option>워치</option>
+                <option>스피커</option>
+                <option>헤드셋</option>
+                <option>이어폰</option>
+                <option>키보드</option>
+                <option>모니터</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="productBrand">브랜드</label>
+            <input type="text" class="form-control" id="productBrand" placeholder="브랜드를 입력하세요.">
+            <span class="mt-2 d-block">설명이 나오네요</span>
+        </div>
+
+        <div class="form-group">
+            <label for="productName">상품명</label>
+            <input type="text" class="form-control" id="productName" placeholder="상품명을 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label for="productPrice">상품 가격</label>
+            <input type="number" class="form-control" id="productPrice" placeholder="상품 가격을 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label for="productAmount">상품 수량</label>
+            <input type="number" class="form-control" id="productAmount" placeholder="수량을 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label for="productDescription">상품 상세 설명</label>
+            <textarea class="form-control" id="productDescription" rows="3"></textarea>
+        </div>
+
+        <div class="form-footer mt-6">
+            <button type="submit" class="btn btn-primary btn-pill">상품 수정</button>
+            <button type="button" class="btn btn-light btn-pill" id="btnCancel">취소</button>
+        </div>
+    </form>
+    <script>
+        document.getElementById("btnCancel").addEventListener('click',function(event){
+            event.preventDefault();
+            location.href = '/product/cancel';
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -379,11 +379,11 @@ $(document).ready(function () {
         [10, 20, 30, "All"],
       ],
       scrollX: true,
-      order: [[2, "asc"]],
+      order: [[0, "desc"]],
       columnDefs: [
         {
           orderable: false,
-          targets: [8],
+          targets: [8,9],
         },
       ],
       language: {

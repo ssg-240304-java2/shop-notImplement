@@ -5,16 +5,23 @@
 <mapper namespace="com.ohgiraffers.notimplement.product.model.dao.ProductMapper">
 
     <resultMap id="productResultMap" type="com.ohgiraffers.notimplement.product.model.domain.Product">
-        <id property="productSeq" column="product_seq"/>
+        <id property="sequence" column="product_seq"/>
         <result property="categoryCode" column="category_code"/>
-        <result property="productBrand" column="product_brand"/>
-        <result property="productName" column="product_name"/>
-        <result property="productPrice" column="product_price"/>
-        <result property="productDescription" column="product_description"/>
-        <result property="productAmount" column="product_amount"/>
-        <result property="productStatus" column="product_status"/>
+        <result property="brand" column="product_brand"/>
+        <result property="name" column="product_name"/>
+        <result property="price" column="product_price"/>
+        <result property="description" column="product_description"/>
+        <result property="amount" column="product_amount"/>
+        <result property="status" column="product_status"/>
         <result property="regDate" column="reg_date"/>
         <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="categoryResultMap" type="com.ohgiraffers.notimplement.product.model.dto.CategoryResponse">
+        <constructor>
+            <idArg javaType="int" column="category_code"/>
+            <arg javaType="string" column="category_name"/>
+        </constructor>
     </resultMap>
 
     <select id="allProductCount" resultType="_int">
@@ -30,19 +37,52 @@
 
     <select id="findAllProduct" resultMap="productResultMap">
         select
-            product_seq,
-            category_code,
-            product_brand,
-            product_name,
-            product_price,
-            product_description,
-            product_amount,
-            product_status,
-            reg_date,
-            update_date
+        product_seq,
+        category_code,
+        product_brand,
+        product_name,
+        product_price,
+        product_description,
+        product_amount,
+        product_status,
+        reg_date,
+        update_date
         from product
-        order by product_seq;
+        order by product_seq desc;
     </select>
+
+    <insert id="save">
+        insert into product
+        (
+        category_code,
+        product_brand,
+        product_name,
+        product_price,
+        product_description,
+        product_amount,
+        product_status,
+        reg_date,
+        update_date
+        )
+        values
+        (
+        #{categoryCode},
+        #{brand},
+        #{name},
+        #{price},
+        #{description},
+        #{amount},
+        #{status},
+        #{regDate},
+        #{updateDate}
+        )
+    </insert>
+
+    <update id="update" parameterType="long">
+        update product
+        set
+        where product_seq = #{productId}
+    </update>
 
     <delete id="delete" parameterType="long">
         delete
@@ -50,4 +90,11 @@
         where product_seq = #{productId}
     </delete>
 
+    <select id="findCategories" resultMap="categoryResultMap">
+        select
+        category_code,
+        category_name
+        from category
+        where ref_category_code is not null
+    </select>
 </mapper>

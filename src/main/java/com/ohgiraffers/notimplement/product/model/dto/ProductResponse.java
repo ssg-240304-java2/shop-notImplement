@@ -18,13 +18,13 @@ public record ProductResponse(
 ) {
     public static ProductResponse from(Product product) {
         return new ProductResponse(
-                product.getProductSeq(),
+                product.getSequence(),
                 product.getCategoryCode(),
-                product.getProductBrand(),
-                product.getProductName(),
-                product.getProductPrice(),
-                product.getProductAmount(),
-                product.getProductStatus().getTitle(),
+                product.getBrand(),
+                product.getName(),
+                product.getPrice(),
+                product.getAmount(),
+                product.getStatus().getTitle(),
                 LocalDate.from(product.getRegDate()),
                 Optional.ofNullable(product.getUpdateDate())
                         .map(LocalDate::from)

@@ -10,7 +10,7 @@ import java.util.Arrays;
 public enum ProductStatus {
     NEW("NEW", "신규 상품"),
     RESERVED("RESERVED","예약 상품"),
-    SOLD_OUT("SOLD_OUT","품절 상품")
+    SOLD_OUT("SOLD_OUT","품절 상품"),
     ;
 
     private final String code;
