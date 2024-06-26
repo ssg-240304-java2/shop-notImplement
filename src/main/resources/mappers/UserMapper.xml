@@ -10,4 +10,25 @@
         FROM POINT
         WHERE USER_SEQ=#{userId}
     </select>
+
+    <select id="getReturningPoint">
+        SELECT
+        IFNULL(sum(op.order_item_price*op.order_item_amount), 0)
+        FROM reasons_for_refund rfr
+        JOIN `order` o ON o.order_seq=rfr.order_seq
+        JOIN order_product op ON o.order_seq=op.order_seq
+        WHERE
+        rfr.refund_complete_date IS NOT NULL
+        AND
+        o.user_seq=#{userId};
+    </select>
+
+    <insert id="refundPoint">
+        <if test="getAvailablePoint >= point and point > 0">
+            INSERT INTO
+            point (point_amount, point_date, user_seq)
+            VALUES
+            (#{point}*(-1), NOW(), #{userId})
+        </if>
+    </insert>
 </mapper>
