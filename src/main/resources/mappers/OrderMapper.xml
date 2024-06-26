@@ -32,6 +32,7 @@
         <result property="productName" column="product_name"/>
         <result property="productSeq" column="product_seq"/>
         <result property="orderDate" column="order_date"/>
+        <result property="productPrice" column="product_price"/>
     </resultMap>
 
     <select id="findAllDetailInfo" resultMap="detailsOrderResultMap">
@@ -46,9 +47,39 @@
         , p.product_seq
         , o.order_date
         , u.user_addr
+        , p.product_price
         FROM `order` o
-        JOIN product p ON o.`order_seq` = p.product_seq
-        JOIN `user` u ON o.`user_seq` = u.`user_seq`
+        JOIN product p ON o.order_seq = p.product_seq
+        JOIN `user` u ON o.user_seq = u.user_seq
+    </select>
+
+    <resultMap id="deliveryOrderResultMap" type="com.ohgiraffers.notimplement.order.model.dto.OrderDeliveryDTO">
+
+        <id property="userSeq" column="user_seq"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="productSeq" column="product_seq"/>
+        <result property="productName" column="product_name"/>
+        <result property="productDescription" column="product_description"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="productPrice" column="product_price"/>
+    </resultMap>
+
+    <select id="findAllOrderDelivery" resultMap="deliveryOrderResultMap">
+        SELECT
+        u.user_seq,
+        o.order_status,
+        o.order_date,
+        o.order_no,
+        p.product_seq,
+        p.product_name,
+        p.product_description,
+        p.reg_date,
+        FROM `order` o
+        JOIN product p ON o.order_no = p.product_seq
+        JOIN user u ON o.user_seq = u.user_seq
+<!--        WHERE u.user_seq = #{userId}-->
     </select>
 </mapper>
 

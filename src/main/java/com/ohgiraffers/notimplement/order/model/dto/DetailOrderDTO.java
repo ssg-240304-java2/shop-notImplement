@@ -24,6 +24,7 @@ public class DetailOrderDTO {
 
     // 결제정보
     private LocalDateTime orderDate;
+    private int productPrice;
 
 
 

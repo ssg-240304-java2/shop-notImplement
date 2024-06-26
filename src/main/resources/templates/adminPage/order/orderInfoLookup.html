@@ -34,20 +34,20 @@
     <table>
         <thead>
         <tr>
-            <th>주문시퀀스</th>
+<!--            <th>주문시퀀스</th>-->
             <th>주문번호</th>
             <th>상태</th>
             <th>날짜</th>
-            <th>유저시퀀스</th>
+<!--            <th>유저시퀀스</th>-->
         </tr>
         </thead>
         <tbody>
         <tr th:each="order : ${orderList}">
-            <td th:text="${order.orderSeq}"></td>
+<!--            <td th:text="${order.orderSeq}"></td>-->
             <td th:text="${order.orderNo}"></td>
             <td th:text="${order.orderStatus}"></td>
             <td th:text="${order.orderDate}"></td>
-            <td th:text="${order.userSeq}"></td>
+<!--            <td th:text="${order.userSeq}"></td>-->
 
         </tr>
         </tbody>
