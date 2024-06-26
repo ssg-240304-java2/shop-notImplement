@@ -6,5 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     int getAvailablePoint(int userId);
 
+    int getReturningPoint(int userId);
     int refundPoint(int userId, int getAvailablePoint, String point);
 }

@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int getReturningPoint(int userId) {
+        return userMapper.getReturningPoint(userId);
+    }
+  
+    @Override
     public int refundPoint(int userId, int getAvailablePoint, String point) {
         return userMapper.refundPoint(userId, getAvailablePoint, point);
     }
