@@ -22,10 +22,7 @@ public class UserServiceImpl implements UserService {
         authMapper.signup(user);
     }
 
-    @Override
-    public boolean findUserById(String id) {
-        return authMapper.findUserById(id) > 0;
-    }
+
 
     @Override
     public List<UserDTO> findAllUser() {
@@ -47,5 +44,11 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println(authMapper.login(inId, inPassword));
         return false;
+    }
+
+    @Override
+    public boolean findUserById(String id) {
+        System.out.println(authMapper.findUserById(id));
+        return authMapper.findUserById(id) <= 0 ? true : false;
     }
 }
