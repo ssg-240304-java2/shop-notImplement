@@ -23,17 +23,11 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("dashboard")
+    @GetMapping("/dashboard")
     public String productDashboard(Model model) {
         DashboardResponse dashboardResponse = productService.showDashboard();
-        int allProductCount = dashboardResponse.allProductCount();
-        int soldOutProductCount = dashboardResponse.soldOutProductCount();
 
-        int reservedProductCount = allProductCount - soldOutProductCount;
-
-        model.addAttribute("allProductCount", allProductCount);
-        model.addAttribute("soldOutProductCount",soldOutProductCount);
-        model.addAttribute("reservedProductCount", reservedProductCount);
+        model.addAttribute("dashboard", dashboardResponse);
 
         return "adminPage/product/productDashboard";
     }

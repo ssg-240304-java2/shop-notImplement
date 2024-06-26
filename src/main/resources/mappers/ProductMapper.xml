@@ -44,4 +44,10 @@
         order by product_seq;
     </select>
 
+    <delete id="delete" parameterType="long">
+        delete
+        from product
+        where product_seq = #{productId}
+    </delete>
+
 </mapper>
