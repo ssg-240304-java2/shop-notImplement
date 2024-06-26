@@ -3,49 +3,57 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{common/layouts/userDefault}">
+
 <head>
     <meta charset="UTF-8">
     <title>상품 상세 정보</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 화면의 전체 높이를 차지하도록 설정 */
+        }
+    </style>
 </head>
 <body>
-<div class="product-details">
-    <div class="product-header">
-        <div class="rental">
-            <h2>렌탈료(1개월~6개월)</h2>
+<div layout:fragment="content" class="content">
+    <div class="product-details">
+        <div class="form-group">
+            <p>브랜드</p>
+            <p type="text" class="form-control" th:text="${product.brand()}">
         </div>
-    </div>
-<!--    이미지...-->
-    <div class="product-images">
-        <img src="/images/product1.png" alt="Product Image 1">
-        <img src="/images/product2.png" alt="Product Image 2">
-        <img src="/images/product3.png" alt="Product Image 3">
-    </div>
+        <div class="form-group">
+            <p>상품 이름</p>
+            <p type="text" class="form-control" th:text="${product.name()}">
+        </div>
+        <div class="form-group">
+            <p>가격</p>
+            <p type="text" class="form-control" th:text="${product.price()}">
+        </div>
+        <div class="form-group">
+            <p>설명</p>
+            <p type="text" class="form-control" th:text="${product.description()}">
+        </div>
 
-    <div class="product-info">
-        <ul>
-            <li>렌탈계약서작성</li>
-            <li>렌탈물건수령 (우체국택배, 또는 지정장소)</li>
-        </ul>
-        <p>"보다 자세한 내용은 당사 홈페이지 '렌탈이용안내' 메뉴 참조바랍니다."</p>
-        <p>배송비 무료<br>제주 및 도서 산간 5,000원 추가</p>
-    </div>
+        <div class="product-header">
+            <div class="rental">
+                <h2 th:text="'렌탈료 1개월~' + ${prices.size()} + '개월'">렌탈료</h2>
+            </div>
+        </div>
 
-    <div class="rental-period">
-        <label for="rental-period-select">렌탈기간</label>
-        <select id="rental-period-select" th:field="*{productDetails}">
-            <option value="" disabled selected>선택하세요.</option>
-            <option value="1months">1개월 : 원/매월</option>
-            <option value="2months">2개월 : 원/매월</option>
-            <option value="3months">3개월 : 원/매월</option>
-            <option value="4months">4개월 : 원/매월</option>
-            <option value="5months">5개월 : 원/매월</option>
-            <option value="6months">6개월 : 원/매월</option>
-        </select>
-    </div>
+        <div class="rental-period">
+            <label for="rental-period-select">렌탈기간</label>
+            <select id="rental-period-select">
+                <option value="" disabled selected>선택하세요.</option>
+                <option th:each="price, priceStat : ${prices}"
+                        th:text="${priceStat.index + 1} + '개월: ' + ${price}"></option>
+            </select>
+        </div>
 
-    <div class="add-to-cart">
-        <button type="button">주문 하기</button>
+        <div class="form-footer mt-6">
+            <button type="submit" class="btn btn-primary btn-pill" id="btnSave">주문하기</button>
+        </div>
     </div>
 </div>
 </body>
