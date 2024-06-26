@@ -79,4 +79,16 @@ public class AuthController {
         return "adminPage/auth/userList";
     }
 
+    @PostMapping("checkId")
+    @ResponseBody
+    public String checkId(@RequestParam String id){
+        String message = "사용 가능한 아이디입니다. ";
+        if (!userService.findUserById(id)) {
+            message = id + "는 이미 있는 아이디 값입니다. 다른 아이디를 사용해주세요. ";
+            return message;
+        }
+
+        return message;
+    }
+
 }

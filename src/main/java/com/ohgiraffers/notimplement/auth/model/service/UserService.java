@@ -9,12 +9,12 @@ public interface UserService {
     //signup
     void signup(UserDTO user);
 
-    //아이디중복체크
-    boolean findUserById(String id);
-
     List<UserDTO> findAllUser();
 
     void delete(int userId);
 
     boolean login(String inId, String inPassword);
+
+    //아이디중복체크
+    boolean findUserById(String id);
 }

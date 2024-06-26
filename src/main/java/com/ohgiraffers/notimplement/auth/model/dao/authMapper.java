@@ -10,11 +10,11 @@ public interface authMapper {
 
     void signup(UserDTO user);
 
-    int findUserById(String id);
-
     List<UserDTO> findAllUser();
 
     void delete(int userId);
 
     int login(String inId, String inPassword);
+
+    int findUserById(String id);
 }

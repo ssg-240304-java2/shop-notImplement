@@ -62,4 +62,6 @@
         where user_id = #{ inId }
         and user_pwd = #{ inPassword }
     </select>
+
+
 </mapper>
