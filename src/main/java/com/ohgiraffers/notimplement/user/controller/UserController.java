@@ -70,5 +70,6 @@ public class UserController {
         int result = userService.refundPoint(userId, userService.getAvailablePoint(userId), point);
 
         return "환급 성공";
+        
     }
 }
