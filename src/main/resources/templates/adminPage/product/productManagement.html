@@ -96,20 +96,20 @@
 
                             <tbody>
                             <tr th:each="product : ${products}">
-                                <td th:text="${product.productSeq()}" class="text-md-center"></td>
-                                <td th:text="${product.productBrand()}"></td>
-                                <td th:text="${product.productName()}"></td>
-                                <td th:text="${product.productPrice()}" class="text-md-center"></td>
-                                <td th:text="${product.productAmount()}" class="text-md-center"></td>
-                                <td th:text="${product.productStatus()}"></td>
+                                <td th:text="${product.sequence()}" class="text-md-center"></td>
+                                <td th:text="${product.brand()}"></td>
+                                <td th:text="${product.name()}"></td>
+                                <td th:text="${product.price()}" class="text-md-center"></td>
+                                <td th:text="${product.amount()}" class="text-md-center"></td>
+                                <td th:text="${product.status()}"></td>
                                 <td th:text="${product.regDate()}"></td>
                                 <td th:text="${product.updateDate()}">수정일</td>
                                 <td>
-                                <button class="update-button" onclick="location.href='/product/update'">수정</button>
-                            </td>
+                                    <a class="update-button" th:href="'/product/' + ${product.sequence()} + '/update'">수정</a>
+                                </td>
                                 <td>
                                     <button class="delete-button"
-                                            th:onclick="'confirmDelete(' + ${product.productSeq} + ')'">삭제
+                                            th:onclick="'confirmDelete(' + ${product.sequence} + ')'">삭제
                                     </button>
                                 </td>
                                 <script>

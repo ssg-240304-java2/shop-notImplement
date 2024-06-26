@@ -1,8 +1,9 @@
 package com.ohgiraffers.notimplement.product.controller;
 
 import com.ohgiraffers.notimplement.product.model.dto.DashboardResponse;
-import com.ohgiraffers.notimplement.product.model.dto.ProductRequest;
+import com.ohgiraffers.notimplement.product.model.dto.ProductCreateRequest;
 import com.ohgiraffers.notimplement.product.model.dto.ProductResponse;
+import com.ohgiraffers.notimplement.product.model.dto.ProductUpdateRequest;
 import com.ohgiraffers.notimplement.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -39,49 +40,37 @@ public class ProductController {
         return "adminPage/product/productManagement";
     }
 
-    // 생성 view 페이지
     @GetMapping("/save")
     public String save(Model model) {
         model.addAttribute("categories", productService.getCategories());
-        model.addAttribute("product", ProductRequest.EMPTY);
+        model.addAttribute("product", ProductCreateRequest.EMPTY);
         return "adminPage/product/product-save";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ProductRequest productRequest) {
-        log.info("Saving product {}", productRequest);
-        productService.saveProduct(productRequest);
+    public String save(@ModelAttribute ProductCreateRequest request) {
+        log.info("Saving product {}", request);
+        productService.saveProduct(request);
         return "redirect:/product/management";
     }
 
-    // 수정 view 페이지
-    @GetMapping("/update")
-    public String update() {
+    @GetMapping("/{productId}/update")
+    public String update(@PathVariable int productId, Model model) {
+        ProductResponse response = productService.getById(productId);
+
+        model.addAttribute("categories", productService.getCategories());
+        model.addAttribute("productResponse", response);
+        model.addAttribute("productRequest", ProductUpdateRequest.EMPTY);
         return "adminPage/product/product-update";
     }
 
-    //TODO: 수정 구현
-    @PostMapping("/update")
-    public String update(@ModelAttribute ProductRequest productRequest) {
-        log.info("Updating product {}", productRequest);
-
-        productService.update(productRequest);
-        return "";
-    }
-
-    @GetMapping("/cancel")
-    public String cancel() {
+    @PostMapping("/{productId}/update")
+    public String update(
+            @PathVariable int productId,
+            @ModelAttribute ProductUpdateRequest request
+    ) {
+        log.info("Updating product {}", request);
+        productService.update(productId, request);
         return "redirect:/product/management";
-    }
-
-    @GetMapping("userlist")
-    public String userProductList(Model model) {
-        log.info("list In");
-//        List<ProductResponse> userProducts = productService.findUserProduct();
-        List<ProductResponse> userProducts = productService.findAllProduct();
-
-        model.addAttribute("userProducts", userProducts);
-
-        return "userPage/product/prouctList";
     }
 }

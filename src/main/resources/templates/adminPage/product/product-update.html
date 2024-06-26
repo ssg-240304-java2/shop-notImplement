@@ -5,7 +5,7 @@
         layout:decorate="~{common/layouts/admDefault}">
 <head>
     <meta charset="UTF-8">
-    <title>상품 수정</title>
+    <title>상품 등록</title>
     <style>
         .content {
             display: flex;
@@ -33,58 +33,50 @@
 </head>
 <body>
 <div layout:fragment="content" class="content">
-    <form class="col-md-6 form-container">
-
+    <form th:action="@{'/product/' + ${productResponse.sequence()} + '/update'}" th:object="${productRequest}" method="post" class="col-md-6 form-container">
         <div class="form-group">
-            <label for="productCategory">상품 카테고리 선택</label>
-            <select class="form-control" id="productCategory">
-                <option>노트북</option>
-                <option>태블릿</option>
-                <option>핸드폰</option>
-                <option>워치</option>
-                <option>스피커</option>
-                <option>헤드셋</option>
-                <option>이어폰</option>
-                <option>키보드</option>
-                <option>모니터</option>
+            <label for="categoryId">상품 카테고리 선택</label>
+            <select class="form-control" id="categoryId" name="categoryId">
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == productResponse.categoryCode}"/>
+                </th:block>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="productBrand">브랜드</label>
-            <input type="text" class="form-control" id="productBrand" placeholder="브랜드를 입력하세요.">
+            <label for="brand">브랜드</label>
+            <input type="text" class="form-control" id="brand" name="brand" th:value="${productResponse.brand()}" placeholder="브랜드를 입력하세요.">
             <span class="mt-2 d-block">설명이 나오네요</span>
         </div>
 
         <div class="form-group">
-            <label for="productName">상품명</label>
-            <input type="text" class="form-control" id="productName" placeholder="상품명을 입력하세요.">
+            <label for="name">상품명</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${productResponse.name()}" placeholder="상품명을 입력하세요.">
         </div>
 
         <div class="form-group">
-            <label for="productPrice">상품 가격</label>
-            <input type="number" class="form-control" id="productPrice" placeholder="상품 가격을 입력하세요.">
+            <label for="price">상품 가격</label>
+            <input type="number" class="form-control" id="price" name="price" th:value="${productResponse.price()}" placeholder="상품 가격을 입력하세요.">
         </div>
 
         <div class="form-group">
-            <label for="productAmount">상품 수량</label>
-            <input type="number" class="form-control" id="productAmount" placeholder="수량을 입력하세요.">
+            <label for="amount">상품 수량</label>
+            <input type="number" class="form-control" id="amount" name="amount" th:value="${productResponse.amount()}" placeholder="수량을 입력하세요.">
         </div>
 
         <div class="form-group">
-            <label for="productDescription">상품 상세 설명</label>
-            <textarea class="form-control" id="productDescription" rows="3"></textarea>
+            <label for="description">상품 상세 설명</label>
+            <textarea class="form-control" id="description" name="description" th:text="${productResponse.description()}" rows="3"></textarea>
         </div>
 
         <div class="form-footer mt-6">
-            <button type="submit" class="btn btn-primary btn-pill">상품 수정</button>
-            <button type="button" class="btn btn-light btn-pill" id="btnCancel">취소</button>
+            <button type="submit" class="btn btn-primary btn-pill" id="btnSave">상품 수정</button>
         </div>
     </form>
     <script>
         document.getElementById("btnCancel").addEventListener('click',function(event){
             event.preventDefault();
-            location.href = '/product/cancel';
+            location.href = '/product/management';
         });
     </script>
 </div>

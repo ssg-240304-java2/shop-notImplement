@@ -5,7 +5,7 @@ import com.ohgiraffers.notimplement.product.model.domain.Product;
 
 import java.util.Objects;
 
-public record ProductRequest(
+public record ProductCreateRequest(
         int categoryId,
         String brand,
         String name,
@@ -14,7 +14,7 @@ public record ProductRequest(
         String description
 ) {
 
-    public static final ProductRequest EMPTY = new ProductRequest(
+    public static final ProductCreateRequest EMPTY = new ProductCreateRequest(
             0,
             "",
             "",

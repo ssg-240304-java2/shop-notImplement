@@ -35,6 +35,22 @@
         where product_amount = 0;
     </select>
 
+    <select id="findById" resultMap="productResultMap">
+        select
+        product_seq,
+        category_code,
+        product_brand,
+        product_name,
+        product_price,
+        product_description,
+        product_amount,
+        product_status,
+        reg_date,
+        update_date
+        from product
+        where product_seq = #{productId}
+    </select>
+
     <select id="findAllProduct" resultMap="productResultMap">
         select
         product_seq,
@@ -78,10 +94,18 @@
         )
     </insert>
 
-    <update id="update" parameterType="long">
+    <update id="update">
         update product
         set
-        where product_seq = #{productId}
+        category_code = #{categoryCode},
+        product_brand = #{brand},
+        product_name = #{name},
+        product_price = #{price},
+        product_description = #{description},
+        product_amount = #{amount},
+        product_status = #{status},
+        update_date = #{updateDate}
+        where product_seq = #{sequence}
     </update>
 
     <delete id="delete" parameterType="long">

@@ -1,5 +1,6 @@
 package com.ohgiraffers.notimplement.product.model.domain;
 
+import com.ohgiraffers.notimplement.product.model.dto.ProductUpdateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +30,16 @@ public class Product {
         this.amount = amount;
         this.status = ProductStatus.NEW;
         this.regDate = LocalDateTime.now();
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public void update(ProductUpdateRequest request) {
+        this.categoryCode = request.categoryId();
+        this.brand = request.brand();
+        this.name = request.name();
+        this.price = request.price();
+        this.description = request.description();
+        this.amount = request.amount();
         this.updateDate = LocalDateTime.now();
     }
 }

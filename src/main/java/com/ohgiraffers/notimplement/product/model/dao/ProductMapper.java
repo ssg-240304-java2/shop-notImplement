@@ -5,6 +5,7 @@ import com.ohgiraffers.notimplement.product.model.dto.CategoryResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface ProductMapper {
@@ -20,6 +21,8 @@ public interface ProductMapper {
     void save(Product product);
 
     void update(Product product);
+
+    Optional<Product> findById(long productId);
 
     List<CategoryResponse> findCategories();
 }
