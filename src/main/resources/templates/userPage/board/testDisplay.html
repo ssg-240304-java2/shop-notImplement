@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summernote</title>
+
+</head>
+<body>
+
+    문의 제목 : <p th:text="${boardDTO.getBoardTitle()}"></p><br>
+    문의 구분 : <p th:text="${boardDTO.getBoardCategory()}"></p><br>
+    문의 내용 작성한 사용자 Id : <p th:text="${boardDTO.userId}"></p><br>
+    문의 내용
+    <div th:utext="${boardDTO.getBoardContent()}"></div>
+<button onclick="location.href='/inquiry/write'">목록으로</button>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            lang: 'ko-KR',
+            callbacks: {
+                onImageUpload : function(files, editor, welEditable) {
+                    // 다중 이미지 처리를 위해 for문을 사용했습니다.
+                    for (var i = 0; i < files.length; i++) {
+                        imageUploader(files[i], this);
+                    }
+                }
+            }
+        });
+    });
+
+    function imageUploader(file, el) {
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            data : formData,
+            type : "POST",
+            // url은 자신의 이미지 업로드 처리 컨트롤러 경로로 설정해주세요.
+            url : '/image-upload',
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',
+            success : function(data) {
+                $(el).summernote('insertImage', "http://ssg-java2.iptime.org/notimpl"+data, function($image) {
+                    $image.css('width', "100%");
+                });
+                // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
+                console.log(data);
+            }
+        });
+    }
+
+    $('#send-post-2').click(function() {
+        const content = $('#summernote').summernote('code');
+        // alert(message);
+        $.ajax({
+            url: "/inquiry",
+            type: "post",
+            data: {
+                "boardTitle": $('#boardTitle').val(),
+                "boardContent":content,
+                "boardCategory" : $('#boardCategory').val(),
+                "userId" : $('#userId').val()
+            },
+            success: function(data) {
+                console.log(data);
+                alert("등록성공");
+            },
+            error:function(error) {
+                console.log(error);
+            }
+        })
+    });
+</script>
+</body>
+</html>
