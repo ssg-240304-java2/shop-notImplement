@@ -1,8 +1,6 @@
 package com.ohgiraffers.notimplement.product.model.domain;
 
-
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 

@@ -5,5 +5,4 @@ public record DashboardResponse(
         int soldOutProductCount,
         int reservedProductCount
 ) {
-
 }

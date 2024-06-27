@@ -1,0 +1,168 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/admDefault}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery Management</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div class="card card-default">
+        <div class="card-header">배송 관리</div>
+        <div class="card-body">
+            <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>주문 번호</th>
+                    <th>주문일</th>
+                    <th>주문자</th>
+                    <th>주문 상품</th>
+                    <th>결제 금액</th>
+                    <th>주문 상태</th>
+                    <th>배송 상태</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="delivery, stat: ${deliveryList}">
+                    <td><input th:id="|checkbox${stat.count}|" th:value="${delivery.orderSeq}"
+                               type="checkbox"></td>
+                    <td th:text="${delivery.orderSeq}"></td>
+                    <td th:text="${delivery.orderDate}"></td>
+                    <td th:text="${delivery.userName}"></td>
+                    <td th:text="${delivery.orderItemName}"></td>
+                    <td th:text="${delivery.orderPrice}+' 원'"></td>
+                    <td th:text="${delivery.orderStatus}"></td>
+                    <td th:text="${delivery.deliveryStatus}"></td>
+                </tr>
+                </tbody>
+                <!--                th:id="|checkbox${stat.count}|"-->
+
+            </table>
+            <button type="button" id="delivery-btn1" class="btn btn-sm btn-primary">결제완료</button>
+            <button type="button" id="delivery-btn2" class="btn btn-sm btn-primary">배송중</button>
+            <button type="button" id="delivery-btn3" class="btn btn-sm btn-primary">배송완료</button>
+
+            <script>
+                $('#delivery-btn1').click(function () {
+                    var orderNumList = [];
+
+                    $('input[type="checkbox"]:checked').each(function () {
+                        orderNumList.push($(this).val());
+                    });
+
+                    console.log(orderNumList);
+
+                    $.ajax({
+                        url: "/admin/delivery/orderCompleted",
+                        type: "post",
+                        data: {orderNumList},
+                        success: function (data) {
+                            alert(data);
+                            location.reload(true);
+                        },
+                        error: function () {
+                            alert("상태 변경에 실패하였습니다.");
+                        }
+                    })
+                });
+
+                $('#delivery-btn2').click(function () {
+                    var orderNumList = [];
+
+                    $('input[type="checkbox"]:checked').each(function () {
+                        orderNumList.push($(this).val());
+                    });
+
+                    console.log(orderNumList);
+
+                    $.ajax({
+                        url: "/admin/delivery/inDelivery",
+                        type: "post",
+                        data: {orderNumList},
+                        success: function (data) {
+                            alert(data);
+                            location.reload(true);
+                        },
+                        error: function () {
+                            alert("상태 변경에 실패하였습니다.");
+                        }
+                    })
+                });
+
+                $('#delivery-btn3').click(function () {
+                    var orderNumList = [];
+
+                    $('input[type="checkbox"]:checked').each(function () {
+                        orderNumList.push($(this).val());
+                    });
+
+                    console.log(orderNumList);
+
+                    $.ajax({
+                        url: "/admin/delivery/completeDelivery",
+                        type: "post",
+                        data: {orderNumList},
+                        success: function (data) {
+                            alert(data);
+                            location.reload(true);
+                        },
+                        error: function () {
+                            alert("상태 변경에 실패하였습니다.");
+                        }
+                    })
+                });
+            </script>
+
+            <!-- 페이지 처리 -->
+            <div class="card card-default align-items-center">
+                <div class="card-body">
+                    <ul class="pagination pagination-flat pagination-flat-rounded">
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Previous" disabled="disabled"
+                               th:if="${selectCriteria.pageNo == 1}">
+                                <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="page-link" aria-label="Previous"
+                               th:if="${selectCriteria.pageNo != 1}"
+                               th:onclick="'location.href=\'/admin/delivery?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''">
+                                <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <ul th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                            <li class="page-item active">
+                                <a class="page-link" th:text="${ page }"
+                                   th:onclick="'location.href=\'/admin/delivery?currentPage='+ @{${page}} + '\''"
+                                   th:disabled="${ selectCriteria.pageNo eq page }"></a>
+                            </li>
+                        </ul>
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Next" disabled="disabled"
+                               th:if="${selectCriteria.pageNo == selectCriteria.maxPage}">
+                                <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            <a class="page-link" aria-label="Next"
+                               th:onclick="'location.href=\'/admin/delivery?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                               th:if="${selectCriteria.pageNo != selectCriteria.maxPage}">
+                                <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

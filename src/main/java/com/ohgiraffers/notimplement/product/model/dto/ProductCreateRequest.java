@@ -1,6 +1,5 @@
 package com.ohgiraffers.notimplement.product.model.dto;
 
-
 import com.ohgiraffers.notimplement.product.model.domain.Product;
 
 import java.util.Objects;
@@ -13,7 +12,6 @@ public record ProductCreateRequest(
         Integer amount,
         String description
 ) {
-
     public static final ProductCreateRequest EMPTY = new ProductCreateRequest(
             0,
             "",
