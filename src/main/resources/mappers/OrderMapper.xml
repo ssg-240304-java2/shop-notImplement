@@ -14,11 +14,11 @@
 
     <select id="findAllOrder" resultMap="ordersResultMap">
         SELECT
-            order_seq
-            , order_no
-            , order_status
-            , order_date
-            , user_seq
+        order_seq
+        , order_no
+        , order_status
+        , order_date
+        , user_seq
         FROM `order`
     </select>
 
@@ -69,7 +69,7 @@
     <select id="findAllOrderDelivery" resultMap="deliveryOrderResultMap">
         SELECT
         u.user_seq,
-        o.order_status,
+        IFNULL(d.delivery_status, '결제완료') AS 'order_status',
         o.order_date,
         o.order_no,
         p.product_seq,
@@ -77,8 +77,9 @@
         p.product_description,
         p.reg_date
         FROM `order` o
-            JOIN product p ON o.order_no = p.product_seq
-            JOIN user u ON o.user_seq = u.user_seq
+        JOIN product p ON o.order_no = p.product_seq
+        LEFT JOIN delivery d ON d.order_seq=o.order_seq
+        JOIN user u ON o.user_seq = u.user_seq
         WHERE u.user_id = #{userId}
     </select>
 </mapper>
