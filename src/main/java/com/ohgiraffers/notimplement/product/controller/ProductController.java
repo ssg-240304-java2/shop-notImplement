@@ -25,18 +25,14 @@ public class ProductController {
     @GetMapping("/dashboard")
     public String productDashboard(Model model) {
         DashboardResponse dashboardResponse = productService.showDashboard();
-
         model.addAttribute("dashboard", dashboardResponse);
-
         return "adminPage/product/productDashboard";
     }
 
     @GetMapping("/management")
     public String productList(Model model) {
         List<ProductResponse> products = productService.findAllProduct();
-
         model.addAttribute("products", products);
-
         return "adminPage/product/productManagement";
     }
 
@@ -49,7 +45,6 @@ public class ProductController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute ProductCreateRequest request) {
-        log.info("Saving product {}", request);
         productService.saveProduct(request);
         return "redirect:/product/management";
     }
@@ -57,7 +52,6 @@ public class ProductController {
     @GetMapping("/{productId}/update")
     public String update(@PathVariable int productId, Model model) {
         ProductResponse response = productService.getById(productId);
-
         model.addAttribute("categories", productService.getCategories());
         model.addAttribute("productResponse", response);
         model.addAttribute("productRequest", ProductUpdateRequest.EMPTY);
@@ -65,11 +59,8 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}/update")
-    public String update(
-            @PathVariable int productId,
-            @ModelAttribute ProductUpdateRequest request
-    ) {
-        log.info("Updating product {}", request);
+    public String update(@PathVariable int productId,
+                         @ModelAttribute ProductUpdateRequest request) {
         productService.update(productId, request);
         return "redirect:/product/management";
     }

@@ -34,7 +34,7 @@
     <hr>
   <table>
       <thead>
-      <th>유저seq</th>
+      <th>NO</th>
       <th>베송상태</th>
       <th>주문날짜</th>
       <th>주문번호</th>
@@ -44,8 +44,8 @@
       <th>등록일</th>
     </thead>
     <tbody>
-    <tr th:each="order : ${orderDeliveryList}">
-      <td th:text="${order.userSeq}"></td>
+    <tr th:each="order, index: ${orderDeliveryList}">
+      <td th:text="${index.count}"></td>
       <td th:text="${order.orderStatus}"></td>
       <td th:text="${order.orderDate}"></td>
       <td th:text="${order.orderNo}"></td>

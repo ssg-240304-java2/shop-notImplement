@@ -15,17 +15,22 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public int getAvailablePoint(int userId) {
+    public int getAvailablePoint(String userId) {
         return userMapper.getAvailablePoint(userId);
     }
 
     @Override
-    public int getReturningPoint(int userId) {
+    public int getReturningPoint(String userId) {
         return userMapper.getReturningPoint(userId);
     }
-  
+
     @Override
-    public int refundPoint(int userId, int getAvailablePoint, String point) {
+    public int refundPoint(String userId, int getAvailablePoint, String point) {
         return userMapper.refundPoint(userId, getAvailablePoint, point);
+    }
+
+    @Override
+    public void pointCharge(String userId, String point) {
+        userMapper.pointCharge(userId, point);
     }
 }

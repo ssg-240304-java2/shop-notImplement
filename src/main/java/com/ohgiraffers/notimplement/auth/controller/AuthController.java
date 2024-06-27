@@ -3,6 +3,8 @@ package com.ohgiraffers.notimplement.auth.controller;
 import com.ohgiraffers.notimplement.auth.model.dto.UserDTO;
 import com.ohgiraffers.notimplement.auth.model.service.UserService;
 import com.ohgiraffers.notimplement.board.model.service.InquiryService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -31,14 +33,25 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String adminLogout(HttpSession session) {
         session.invalidate();
 
         return "redirect:/index.html";
     }
 
+    @GetMapping("/adminMain")
+    public String adminMain() {
+        return "adminPage/main";
+    }
+
+    @GetMapping("/userMain")
+    public String userMain() {
+        return "userPage/main";
+    }
+
     @PostMapping("main")
     public String login1(HttpSession session,
+                         HttpServletRequest request,
                         @RequestParam(value = "id", required = false) String inId,
                         @RequestParam(value = "password", required = false) String inPassword,
                          Model model) {
@@ -52,7 +65,7 @@ public class AuthController {
             session.setAttribute("password", inPassword);
             return "redirect:/user/product";
         } else {
-            return "redirect:/index.html";
+            return "redirect:/main/index.html";
         }
     }
 

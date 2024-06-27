@@ -1,6 +1,5 @@
 package com.ohgiraffers.notimplement.product.model.dto;
 
-
 public record ProductUpdateRequest(
         int categoryId,
         String brand,
@@ -9,7 +8,6 @@ public record ProductUpdateRequest(
         Integer amount,
         String description
 ) {
-
     public static final ProductUpdateRequest EMPTY = new ProductUpdateRequest(
             0,
             "",

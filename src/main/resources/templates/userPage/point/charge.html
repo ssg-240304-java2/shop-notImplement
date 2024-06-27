@@ -1,0 +1,83 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>적립금 충전</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        html {
+            background: lightgray;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        header {
+            padding: 10px;
+            background: white;
+            width: 100vw;
+            height: 60px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .container {
+            margin: 0 auto;
+            background: white;
+            width: 50vw;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>적립금 충전</h1>
+</header>
+<div class="container">
+    <h1>금액 입력</h1>
+    <div>
+        <input type="text" placeholder="카드번호를 입력하세요">
+        <input type="text" placeholder="월">/<input type="text" placeholder="연">
+        <input type="text" placeholder="CVC">
+    </div>
+    <div>
+        <input id="point" type="text" placeholder="충전할 금액을 입력하세요">
+        현재 잔액 : <span id="availablePoint" th:value="${availablePoint}" th:text="${availablePoint}"></span>
+    </div>
+    <button id="confirm">확인</button>
+</div>
+<script>
+    $('#confirm').click(function () {
+        if (confirm(`충전금액 : ` + $('#point').val() + `\n충전 후 적립금 : ` + (Number($('#point').val()) + Number($('#availablePoint').text())) + `\n충전하시겠습니까?`)) {
+            var point = $('#point').val();
+            $.ajax({
+                url: "/user/Charge",
+                type: "post",
+                data: {point},
+                success: function (data) {
+                    alert(data);
+                    window.open(location.href = "/user/point", '_self', false);
+                },
+                error: function (error) {
+                    alert("충전에 실패했습니다.");
+                    window.open(location.href = "/user/point", '_self', false);
+                }
+            })
+        } else {
+            alert("충전을 취소하셨습니다.");
+            window.open(location.href = "/user/point", '_self', false);
+        }
+    });
+</script>
+</body>
+</html>

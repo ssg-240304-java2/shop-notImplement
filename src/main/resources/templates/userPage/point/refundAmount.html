@@ -85,15 +85,12 @@
                 success: function (data) {
                     alert(data);
                     // alert("환급 성공!!");
-                    window.close();
-                    window.open(location.href = "/user/point");
+                    window.open(location.href = "/user/point", '_self', false);
                 },
                 error: function (error) {
                     alert("환급 실패!!");
-                    window.close();
-                    window.open(location.href = "/user/point");
+                    window.open(location.href = "/user/point", '_self', false);
                 }
-
             })
         })
     </script>
