@@ -46,7 +46,7 @@
             </table>
             <button type="button" id="delivery-btn1" class="btn btn-sm btn-primary">결제완료</button>
             <button type="button" id="delivery-btn2" class="btn btn-sm btn-primary">배송중</button>
-            <!--            <button type="button" id="delivery-btn3" class="btn btn-sm btn-primary">배송완료</button>-->
+            <button type="button" id="delivery-btn3" class="btn btn-sm btn-primary">배송완료</button>
 
             <script>
                 $('#delivery-btn1').click(function () {
@@ -83,6 +83,29 @@
 
                     $.ajax({
                         url: "/admin/delivery/inDelivery",
+                        type: "post",
+                        data: {orderNumList},
+                        success: function (data) {
+                            alert(data);
+                            location.reload(true);
+                        },
+                        error: function () {
+                            alert("상태 변경에 실패하였습니다.");
+                        }
+                    })
+                });
+
+                $('#delivery-btn3').click(function () {
+                    var orderNumList = [];
+
+                    $('input[type="checkbox"]:checked').each(function () {
+                        orderNumList.push($(this).val());
+                    });
+
+                    console.log(orderNumList);
+
+                    $.ajax({
+                        url: "/admin/delivery/completeDelivery",
                         type: "post",
                         data: {orderNumList},
                         success: function (data) {

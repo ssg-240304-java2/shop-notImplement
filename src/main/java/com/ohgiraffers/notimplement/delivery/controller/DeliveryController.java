@@ -73,4 +73,16 @@ public class DeliveryController {
 
         return " 주문 상태 변경 성공";
     }
+
+    @PostMapping("/delivery/completeDelivery")
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @ResponseBody
+    public String completeDelivery(@RequestParam(value = "orderNumList[]") int[] orderList) {
+
+        for (int order : orderList) {
+            deliveryService.completeDelivery(order);
+        }
+
+        return " 주문 상태 변경 성공";
+    }
 }

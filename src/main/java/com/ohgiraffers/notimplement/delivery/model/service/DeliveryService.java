@@ -13,4 +13,6 @@ public interface DeliveryService {
     void setOrderCompleted(int order);
 
     void setInDelivery(int order);
+
+    void completeDelivery(int order);
 }

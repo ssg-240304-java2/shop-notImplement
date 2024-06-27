@@ -63,4 +63,12 @@
         delivery_status='배송중', delivery_completed_date=NULL
         WHERE order_seq=#{order};
     </update>
+
+    <update id="completeDelivery">
+        UPDATE
+        delivery
+        SET
+        delivery_status='배송완료', delivery_completed_date=NOW()
+        WHERE order_seq=#{order};
+    </update>
 </mapper>

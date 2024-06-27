@@ -13,10 +13,12 @@ public interface DeliveryMapper {
     int getTotalCount();
 
     String checkDeliveryStatus(int order);
-    
+
     void deleteDelivery(int order);
 
     void startDelivery(int order);
 
     void revertDeliveryComplete(int order);
+
+    void completeDelivery(int order);
 }

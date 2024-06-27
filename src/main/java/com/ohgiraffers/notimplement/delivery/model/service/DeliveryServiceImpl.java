@@ -52,4 +52,16 @@ public class DeliveryServiceImpl implements DeliveryService {
             deliveryMapper.revertDeliveryComplete(order);
         }
     }
+
+    @Override
+    public void completeDelivery(int order) {
+        String status = deliveryMapper.checkDeliveryStatus(order);
+        if (status == null) { // 결제 완료
+            deliveryMapper.startDelivery(order);
+            deliveryMapper.completeDelivery(order);
+        } else if (status.equals("배송중")) { // 배송중
+            deliveryMapper.completeDelivery(order);
+        }
+
+    }
 }
