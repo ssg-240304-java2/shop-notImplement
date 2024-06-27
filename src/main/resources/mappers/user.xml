@@ -55,3 +55,11 @@
         from user
         where user_seq = #{ userId }
     </delete>
+
+    <select id="login" resultType="_int">
+        select count(*)
+        from user
+        where user_id = #{ inId }
+        and user_pwd = #{ inPassword }
+    </select>
+</mapper>
