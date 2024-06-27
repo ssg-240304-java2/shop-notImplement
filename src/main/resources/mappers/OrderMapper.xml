@@ -75,11 +75,11 @@
         p.product_seq,
         p.product_name,
         p.product_description,
-        p.reg_date,
+        p.reg_date
         FROM `order` o
-        JOIN product p ON o.order_no = p.product_seq
-        JOIN user u ON o.user_seq = u.user_seq
-<!--        WHERE u.user_seq = #{userId}-->
+            JOIN product p ON o.order_no = p.product_seq
+            JOIN user u ON o.user_seq = u.user_seq
+        WHERE u.user_id = #{userId}
     </select>
 </mapper>
 

@@ -5,6 +5,8 @@ import com.ohgiraffers.notimplement.order.model.dto.OrderDTO;
 import com.ohgiraffers.notimplement.order.model.dto.OrderDeliveryDTO;
 import com.ohgiraffers.notimplement.order.model.service.OrderService;
 import com.ohgiraffers.notimplement.user.controller.UserController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,10 +46,11 @@ public class OrderController {
 
     // 구매자 주문배송조회
     @GetMapping("/orderDelivery")
-    public String orderDelivery(@RequestParam(value="userId", required = false) String userId, Model model) {
+    public String orderDelivery(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
 
         System.out.println("userId = " + userId);
-        userId = "11";
         List<OrderDeliveryDTO> orderDeliveryList = orderService.findAllOrderDelivery(userId);
         model.addAttribute("orderDeliveryList", orderDeliveryList);
 
@@ -55,17 +58,3 @@ public class OrderController {
         return "userPage/order/orderDeliveryLookup";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
