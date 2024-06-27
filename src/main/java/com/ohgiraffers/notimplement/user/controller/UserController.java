@@ -30,8 +30,11 @@ public class UserController {
 
     @GetMapping("/info")
     public String main() {
-        return "userPage/userInfo";
+//        return "userPage/myPage";
+
+        return "redirect:/user/point";
     }
+
 
 
     @GetMapping("/point")

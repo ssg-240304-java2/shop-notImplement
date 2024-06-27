@@ -6,11 +6,8 @@
 <head>
     <meta charset="utf-8">
     <title>AdminMain</title>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<!--    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>-->
 </head>
 <body>
     <div layout:fragment="content">
@@ -51,11 +48,13 @@
                     </div>
                     <div class="card-body">
                         <form action="/admin/inquiry/answer" method="post">
-                            <input type="hidden" name="boardSeq" th:value="${boardDTO.getBoardSeq()}">
-                            <div class="col-md-8"  id="summernote" name="editordata" th:if="${boardDTO.getAnswer() == null}" ></div>
-                            <div class="col-md-8" th:unless="${boardDTO.getAnswer() == null}" th:utext="${boardDTO.getAnswer()}"></div>
+                            <input type="hidden" name="boardSeq" id="boardSeq" th:value="${boardDTO.getBoardSeq()}">
+                            <div  class="col-md-8">
+                                <div id="summernote" name="editordata" th:if="${boardDTO.getAnswer() == null}" ></div>
+                                <div th:unless="${boardDTO.getAnswer() == null}" th:utext="${boardDTO.getAnswer()}"></div>
+                            </div>
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary m-3" id="send-post-2" th:if="${boardDTO.getAnswer() == null}">답변 등록</button>
+                                <button type="button" id="updateInquiry" class="btn btn-primary m-3" th:if="${boardDTO.getAnswer() == null}">답변 등록</button>
                                 <button type="button" class="btn btn-outline-primary m-3"  onclick="window.location.href='/admin/inquiry';">목록으로</button>
                             </div>
                         </form>
@@ -63,6 +62,40 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#summernote').summernote({
+                    lang: 'ko-KR',
+                    callbacks: {
+                        onImageUpload : function(files, editor, welEditable) {
+                            // 다중 이미지 처리를 위해 for문을 사용했습니다.
+                            for (var i = 0; i < files.length; i++) {
+                                imageUploader(files[i], this);
+                            }
+                        }
+                    }
+                });
+            });
+            $('#updateInquiry').click(function() {
+                const content = $('#summernote').summernote('code');
+                // alert(message);
+                $.ajax({
+                    url: "/admin/inquiry/answer",
+                    type: "post",
+                    data: {
+                        "boardSeq":$('#boardSeq').val(),
+                        "answer":content
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        window.location.href='/admin/inquiry';
+                    },
+                    error:function(error) {
+                        console.log(error);
+                    }
+                })
+            });
+        </script>
     </div>
 </body>
 </html>

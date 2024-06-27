@@ -2,15 +2,15 @@
 <html
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{common/layouts/userDefault}">
+        layout:decorate="~{common/layouts/userMyPageDefault}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
-        #pointInfo {
-            padding-top: 200px;
-        }
+        /*#pointInfo {*/
+        /*    padding-top: 200px;*/
+        /*}*/
 
         section#pointInfo > div.container {
             background: lightgrey;
@@ -31,7 +31,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <section id="pointInfo" class="padding-large">
+    <section id="pointInfo">
         <div class="container">
             <div id="titleContainer">
                 <h2 id="pointTitle">적립금</h2>

@@ -65,6 +65,9 @@
             board
         WHERE
             board_del = 0
+            <if test="userId != null and userId != '' ">
+                AND user_id = #{userId}
+            </if>
             <if test="status != null and status == 1">
                 AND  answer is null
             </if>

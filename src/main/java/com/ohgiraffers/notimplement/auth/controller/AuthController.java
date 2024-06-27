@@ -2,6 +2,7 @@ package com.ohgiraffers.notimplement.auth.controller;
 
 import com.ohgiraffers.notimplement.auth.model.dto.UserDTO;
 import com.ohgiraffers.notimplement.auth.model.service.UserService;
+import com.ohgiraffers.notimplement.board.model.service.InquiryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -19,9 +20,11 @@ import java.util.List;
 public class AuthController {
 
     private final UserService userService;
+    private final InquiryService inquiryService;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, InquiryService inquiryService) {
         this.userService = userService;
+        this.inquiryService = inquiryService;
     }
 
     @GetMapping("/login")
@@ -32,6 +35,7 @@ public class AuthController {
     @GetMapping("/logout")
     public String adminLogout(HttpSession session) {
         session.invalidate();
+
         return "redirect:/index.html";
     }
 
@@ -49,18 +53,17 @@ public class AuthController {
     public String login1(HttpSession session,
                          HttpServletRequest request,
                         @RequestParam(value = "id", required = false) String inId,
-                        @RequestParam(value = "password", required = false) String inPassword) {
-
-        session.setAttribute("id", inId);
-        session.setAttribute("password", inPassword);
-//        session = request.getSession();
-//        String userId = (String) session.getAttribute("id");
-
-        if("1".equals(inId) && "1".equals(inPassword)) {
-            return "redirect:/auth/adminMain";
+                        @RequestParam(value = "password", required = false) String inPassword,
+                         Model model) {
+        if("admin".equals(inId) && "admin".equals(inPassword)) {
+            int countInquiry = inquiryService.getCountNotAnswer();
+            model.addAttribute("countInquiry", countInquiry);
+            return "adminPage/main";
         }
         else if(userService.login(inId, inPassword)) {
-            return "redirect:/auth/userMain";
+            session.setAttribute("id", inId);
+            session.setAttribute("password", inPassword);
+            return "redirect:/user/product";
         } else {
             return "redirect:/main/index.html";
         }
