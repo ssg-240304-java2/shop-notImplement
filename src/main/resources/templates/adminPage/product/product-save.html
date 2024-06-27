@@ -11,29 +11,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* 화면의 전체 높이를 차지하도록 설정 */
+            min-height: 100vh;
         }
 
         .form-container {
             width: 100%;
-            max-width: 600px; /* 폼의 최대 너비를 설정 */
+            max-width: 600px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
-            border-radius: 10px; /* 둥근 모서리 */
-            background-color: #fff; /* 배경색 흰색 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
         }
 
         .form-footer {
             display: flex;
-            justify-content: center; /* 수평 중앙 정렬 */
-            gap: 10px; /* 버튼 간의 간격 */
-            margin-top: 6rem; /* 기존의 mt-6 값을 유지 */
+            justify-content: center;
+            gap: 10px;
+            margin-top: 6rem;
         }
     </style>
 </head>
 <body>
 <div layout:fragment="content" class="content">
-<!--    <form th:action="/product/save" method="post" class="col-md-6 form-container">-->
     <form th:action="@{/product/save}" th:object="${product}" method="post" class="col-md-6 form-container">
         <div class="form-group">
             <label for="categoryId">상품 카테고리 선택</label>
@@ -70,21 +69,16 @@
             <textarea class="form-control" id="productDescription" th:field="*{description}" rows="3"></textarea>
         </div>
 
-
-<!--        <div class="form-group">-->
-<!--            <label for="productImage">상품 이미지 등록</label>-->
-<!--            <input type="file" class="form-control-file" id="productImage">-->
-<!--        </div>-->
-
         <div class="form-footer mt-6">
             <button type="submit" class="btn btn-primary btn-pill" id="btnSave">상품 등록</button>
-<!--            <button type="submit" class="btn btn-light btn-pill" id="btnCancel">취소</button>-->
+            <button type="submit" class="btn btn-light btn-pill" id="btnCancel">취소</button>
         </div>
     </form>
+
     <script>
-        document.getElementById("btnCancel").addEventListener('click',function(event){
+        document.getElementById("btnCancel").addEventListener('click', function (event) {
             event.preventDefault();
-            location.href = '/product/cancel';
+            location.href = '/product/management';
         });
     </script>
 </div>
