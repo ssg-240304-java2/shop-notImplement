@@ -9,4 +9,6 @@ public interface DeliveryService {
     List<DeliveryDTO> getAllDeliveryList(SelectDeliveryCriteria selectCriteria);
 
     int getTotalCount();
+
+    void setOrderCompleted(int order);
 }

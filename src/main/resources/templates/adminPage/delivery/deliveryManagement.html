@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Delivery Management</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content" class="content">
@@ -16,6 +17,7 @@
             <table id="productsTable" class="table table-hover table-product" style="width:100%">
                 <thead>
                 <tr>
+                    <th>선택</th>
                     <th>주문 번호</th>
                     <th>주문일</th>
                     <th>주문자</th>
@@ -27,8 +29,9 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                <tr th:each="delivery: ${deliveryList}">
+                <tr th:each="delivery, stat: ${deliveryList}">
+                    <td><input th:id="|checkbox${stat.count}|" th:value="${delivery.orderSeq}"
+                               type="checkbox"></td>
                     <td th:text="${delivery.orderSeq}"></td>
                     <td th:text="${delivery.orderDate}"></td>
                     <td th:text="${delivery.userName}"></td>
@@ -36,22 +39,39 @@
                     <td th:text="${delivery.orderPrice}+' 원'"></td>
                     <td th:text="${delivery.orderStatus}"></td>
                     <td th:text="${delivery.deliveryStatus}"></td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                    </td>
                 </tr>
                 </tbody>
+                <!--                th:id="|checkbox${stat.count}|"-->
+
             </table>
+            <button type="button" id="delivery-btn1" class="btn btn-sm btn-primary">결제완료</button>
+            <!--            <button type="button" id="delivery-btn2" class="btn btn-sm btn-primary">배송중</button>-->
+            <!--            <button type="button" id="delivery-btn3" class="btn btn-sm btn-primary">배송완료</button>-->
+
+            <script>
+                $('#delivery-btn1').click(function () {
+                    var orderNumList = [];
+
+                    $('input[type="checkbox"]:checked').each(function () {
+                        orderNumList.push($(this).val());
+                    });
+
+                    console.log(orderNumList);
+
+                    $.ajax({
+                        url: "/admin/delivery/orderCompleted",
+                        type: "post",
+                        data: {orderNumList},
+                        success: function (data) {
+                            alert(data);
+                        },
+                        error: function () {
+                            alert("상태 변경에 실패하였습니다.");
+                        }
+                    })
+                });
+            </script>
+
             <!-- 페이지 처리 -->
             <div class="card card-default align-items-center">
                 <div class="card-body">

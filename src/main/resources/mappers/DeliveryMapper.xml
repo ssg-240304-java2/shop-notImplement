@@ -36,4 +36,26 @@
     <select id="getTotalCount">
         select count(*) from `order`;
     </select>
+
+    <select id="checkDeliveryStatus">
+        select
+        count(*)
+        from
+        delivery
+        where
+        order_seq=#{order}
+    </select>
+
+    <update id="updateOrderStatus">
+        UPDATE
+        `order`
+        SET
+        order_status=#{status}
+        WHERE
+        order_seq = #{order};
+    </update>
+
+    <delete id="deleteDelivery">
+        DELETE FROM delivery WHERE order_seq=#{order};
+    </delete>
 </mapper>

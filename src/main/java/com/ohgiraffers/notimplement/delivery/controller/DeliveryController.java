@@ -6,10 +6,11 @@ import com.ohgiraffers.notimplement.delivery.paging.DeliveryPagenation;
 import com.ohgiraffers.notimplement.delivery.paging.SelectDeliveryCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +48,17 @@ public class DeliveryController {
         model.addAttribute("selectCriteria", selectCriteria);
 
         return "adminPage/delivery/deliveryManagement";
+    }
+
+    @PostMapping("/delivery/orderCompleted")
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @ResponseBody
+    public String deliveryOrderCompleted(@RequestParam(value = "orderNumList[]") int[] orderList) {
+
+        for (int order : orderList) {
+            deliveryService.setOrderCompleted(order);
+        }
+
+        return " 주문 상태 변경 성공";
     }
 }

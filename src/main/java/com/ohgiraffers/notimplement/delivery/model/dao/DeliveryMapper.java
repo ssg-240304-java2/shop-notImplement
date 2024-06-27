@@ -11,4 +11,10 @@ public interface DeliveryMapper {
     List<DeliveryDTO> getAllDeliveryList(SelectDeliveryCriteria selectCriteria);
 
     int getTotalCount();
+
+    int checkDeliveryStatus(int order);
+
+    void updateOrderStatus(int order, String status);
+
+    void deleteDelivery(int order);
 }
