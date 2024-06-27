@@ -73,6 +73,27 @@ public class UserController {
         int result = userService.refundPoint(userId, userService.getAvailablePoint(userId), point);
 
         return "환급 성공";
-        
+
+    }
+
+    @GetMapping("/pointCharge")
+    public String pointCharge(Model model) {
+        int userId = 1;
+
+        int availablePoint = userService.getAvailablePoint(userId);
+        model.addAttribute("availablePoint", availablePoint);
+        return "userPage/point/charge";
+    }
+
+    @PostMapping("/Charge")
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @ResponseBody
+    public String pointCharge(@RequestParam String point) {
+
+        int userId = 1;
+
+        userService.pointCharge(userId, point);
+
+        return "적립금 충전 성공!!";
     }
 }

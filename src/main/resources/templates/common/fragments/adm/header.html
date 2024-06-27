@@ -21,14 +21,13 @@
                     <!-- User Account -->
                     <li class="dropdown user-menu">
                         <button class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="d-none d-lg-inline-block">admin</span>
 
-                            <span class="d-none d-lg-inline-block">John Doe</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
-
-
                             <li>
-                                <a class="dropdown-link-item" href="admin/main.html"> <i class="mdi mdi-logout"></i> Log Out </a>
+                                <a class="dropdown-link-item" href="/auth/logout">
+                                    <i class="mdi mdi-logout" onclick="location.href='/auth/adminLogout'"></i>로그아웃 </a>
                             </li>
                         </ul>
                     </li>

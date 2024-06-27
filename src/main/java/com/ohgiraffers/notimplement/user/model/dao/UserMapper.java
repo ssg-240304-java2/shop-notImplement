@@ -7,5 +7,8 @@ public interface UserMapper {
     int getAvailablePoint(int userId);
 
     int getReturningPoint(int userId);
+
     int refundPoint(int userId, int getAvailablePoint, String point);
+
+    void pointCharge(int userId, String point);
 }
