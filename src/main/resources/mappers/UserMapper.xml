@@ -6,9 +6,10 @@
 
     <select id="getAvailablePoint">
         SELECT
-        SUM(POINT_AMOUNT)
+        IFNULL(SUM(POINT_AMOUNT), 0)
         FROM POINT
-        WHERE USER_SEQ=#{userId}
+        WHERE
+        USER_SEQ=(select user_seq from user where user_id=#{userId})
     </select>
 
     <select id="getReturningPoint">
@@ -20,7 +21,7 @@
         WHERE
         rfr.refund_complete_date IS NOT NULL
         AND
-        o.user_seq=#{userId};
+        o.user_seq=(select user_seq from user where user_id=#{userId})
     </select>
 
     <insert id="refundPoint">
@@ -28,7 +29,11 @@
             INSERT INTO
             point (point_amount, point_date, user_seq)
             VALUES
-            (#{point}*(-1), NOW(), #{userId})
+            (
+            #{point}*(-1),
+            NOW(),
+            (select user_seq from user where user_id=#{userId})
+            )
         </if>
     </insert>
 
@@ -36,6 +41,10 @@
         INSERT INTO
         POINT (point_amount, point_date, user_seq)
         VALUES
-        (#{point}, NOW(), #{userId})
+        (
+        #{point},
+        NOW(),
+        (select user_seq from user where user_id=#{userId})
+        )
     </insert>
 </mapper>

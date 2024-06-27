@@ -4,11 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    int getAvailablePoint(int userId);
+    int getAvailablePoint(String userId);
 
-    int getReturningPoint(int userId);
+    int getReturningPoint(String userId);
 
-    int refundPoint(int userId, int getAvailablePoint, String point);
+    int refundPoint(String userId, int getAvailablePoint, String point);
 
-    void pointCharge(int userId, String point);
+    void pointCharge(String userId, String point);
 }
