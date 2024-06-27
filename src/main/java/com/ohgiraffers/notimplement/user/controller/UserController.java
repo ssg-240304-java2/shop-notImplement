@@ -1,6 +1,9 @@
 package com.ohgiraffers.notimplement.user.controller;
 
 import com.ohgiraffers.notimplement.user.model.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
@@ -32,9 +35,10 @@ public class UserController {
 
 
     @GetMapping("/point")
-    public String point(Model model) {
+    public String point(Model model, HttpServletRequest request) {
 
-        int userId = 1;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
 
         // 데이터 베이스에서 고객의 사용 가능한 적립금 계산해서 반환
         int availablePoint = userService.getAvailablePoint(userId);
@@ -52,9 +56,10 @@ public class UserController {
     }
 
     @GetMapping("/refundAmount")
-    public String pointRefundAmount(Model model) {
+    public String pointRefundAmount(Model model, HttpServletRequest request) {
 
-        int userId = 1;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
 
         int availablePoint = userService.getAvailablePoint(userId);
 
@@ -66,9 +71,10 @@ public class UserController {
     @PostMapping("refundPointConfirm")
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @ResponseBody
-    public String pointRefund(@RequestParam String point) {
+    public String pointRefund(@RequestParam String point, HttpServletRequest request) {
 
-        int userId = 1;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
 
         int result = userService.refundPoint(userId, userService.getAvailablePoint(userId), point);
 
@@ -77,8 +83,10 @@ public class UserController {
     }
 
     @GetMapping("/pointCharge")
-    public String pointCharge(Model model) {
-        int userId = 1;
+    public String pointCharge(Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
 
         int availablePoint = userService.getAvailablePoint(userId);
         model.addAttribute("availablePoint", availablePoint);
@@ -88,9 +96,10 @@ public class UserController {
     @PostMapping("/Charge")
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @ResponseBody
-    public String pointCharge(@RequestParam String point) {
+    public String pointCharge(@RequestParam String point, HttpServletRequest request) {
 
-        int userId = 1;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
 
         userService.pointCharge(userId, point);
 
