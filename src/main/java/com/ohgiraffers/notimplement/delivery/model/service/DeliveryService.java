@@ -11,4 +11,6 @@ public interface DeliveryService {
     int getTotalCount();
 
     void setOrderCompleted(int order);
+
+    void setInDelivery(int order);
 }

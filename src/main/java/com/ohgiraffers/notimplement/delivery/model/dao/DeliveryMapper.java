@@ -12,9 +12,11 @@ public interface DeliveryMapper {
 
     int getTotalCount();
 
-    int checkDeliveryStatus(int order);
-
-    void updateOrderStatus(int order, String status);
-
+    String checkDeliveryStatus(int order);
+    
     void deleteDelivery(int order);
+
+    void startDelivery(int order);
+
+    void revertDeliveryComplete(int order);
 }

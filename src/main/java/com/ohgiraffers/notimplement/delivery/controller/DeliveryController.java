@@ -61,4 +61,16 @@ public class DeliveryController {
 
         return " 주문 상태 변경 성공";
     }
+
+    @PostMapping("/delivery/inDelivery")
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @ResponseBody
+    public String inDelivery(@RequestParam(value = "orderNumList[]") int[] orderList) {
+
+        for (int order : orderList) {
+            deliveryService.setInDelivery(order);
+        }
+
+        return " 주문 상태 변경 성공";
+    }
 }
