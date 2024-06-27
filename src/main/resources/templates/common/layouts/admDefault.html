@@ -29,7 +29,7 @@
     <link id="main-css-href" rel="stylesheet" href="../../../css/style.css" />
     <!-- FAVICON -->
     <link href="../../../images/favicon.png" rel="shortcut icon" />
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!--
       HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     -->
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <script src="../../../plugins/jquery/jquery.min.js"></script>
+<!--    <script src="../../../plugins/jquery/jquery.min.js"></script>-->
     <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../../plugins/simplebar/simplebar.min.js"></script>
     <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
@@ -61,21 +61,86 @@
     <script src="../../../plugins/jvectormap/jquery-jvectormap-us-aea.js"></script>
     <script src="../../../plugins/daterangepicker/moment.min.js"></script>
     <script src="../../../plugins/daterangepicker/daterangepicker.js"></script>
+
     <script>
-        jQuery(document).ready(function () {
-            jQuery('input[name="dateRange"]').daterangepicker({
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                lang: 'ko-KR',
+                callbacks: {
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video']]
+                    ],
+                    onImageUpload : function(files, editor, welEditable) {
+                        // 다중 이미지 처리를 위해 for문을 사용했습니다.
+                        for (var i = 0; i < files.length; i++) {
+                            imageUploader(files[i], this);
+                        }
+                    }
+                }
+            });
+            $('input[name="dateRange"]').daterangepicker({
                 autoUpdateInput: false,
                 singleDatePicker: true,
                 locale: {
                     cancelLabel: 'Clear'
                 }
             });
-            jQuery('input[name="dateRange"]').on('apply.daterangepicker', function (ev, picker) {
-                jQuery(this).val(picker.startDate.format('MM/DD/YYYY'));
+            $('input[name="dateRange"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY'));
             });
-            jQuery('input[name="dateRange"]').on('cancel.daterangepicker', function (ev, picker) {
-                jQuery(this).val('');
+            $('input[name="dateRange"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
             });
+        });
+
+        function imageUploader(file, el) {
+            var formData = new FormData();
+            formData.append('file', file);
+            formData.append('','');
+
+            $.ajax({
+                data : formData,
+                type : "POST",
+                // url은 자신의 이미지 업로드 처리 컨트롤러 경로로 설정해주세요.
+                url : '/image-upload',
+                contentType : false,
+                processData : false,
+                enctype : 'multipart/form-data',
+                success : function(data) {
+                    $(el).summernote('insertImage', "http://ssg-java2.iptime.org/notimpl"+data, function($image) {
+                        $image.css('width', "50%");
+                    });
+                    // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
+                    console.log(data);
+                }
+            });
+        }
+
+        $('#send-post-2').click(function() {
+            const content = $('#summernote').summernote('code');
+            // alert(message);
+            $.ajax({
+                url: "/inquiry",
+                type: "post",
+                data: {
+                    "boardTitle": $('#boardTitle').val(),
+                    "boardContent":content,
+                    "boardCategory" : $('#boardCategory').val(),
+                    "userId" : $('#userId').val()
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert("등록성공");
+                },
+                error:function(error) {
+                    console.log(error);
+                }
+            })
         });
     </script>
 

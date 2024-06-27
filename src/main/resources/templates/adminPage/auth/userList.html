@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/admDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <h2>회원 목록</h2>
+    <div class="content">
+        <div class="row">
+                  <div class="col-12">
+                    <div class="card card-default">
+                      <div class="card-header">
+                        <h2></h2>
+                      </div>
+                      <div class="card-body">
+                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>번호</th>
+                              <th>가입일</th>
+                              <th>이름</th>
+                              <th>아이디</th>
+                              <th>이메일</th>
+                              <th>휴대전화</th>
+                              <th>생년월일</th>
+                              <th>주소</th>
+                              <th>회원 정보 수정일</th>
+                              <th>회원삭제</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                            <tr th:each="user : ${userList}">
+                                <td th:text="${user.seq}"></td>
+                                <td th:text="${user.reg_date}"></td>
+                                <td th:text="${user.name}"></td>
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.phone}"></td>
+                                <td th:text="${user.rrn}"></td>
+                                <td th:text="${user.addr}"></td>
+                                <td th:text="${user.update_date}"></td>
+                                <td>
+                                    <button class="btn btn-danger rounded-pill px-3" type="button" th:onclick="confirmDelete([[${user.seq}]])">삭제
+                                    </button>
+                                </td>
+                            <script>
+                                    function confirmDelete(id) {
+                                        const result = confirm("정말로 삭제하시겠습니까?");
+                                        if (result) {
+                                            fetch('http://localhost:8080/userList/' + id, {
+                                                method: 'DELETE'
+                                            }).then(response => {
+                                                if (response.ok) {
+                                                    alert("삭제가 완료되었습니다.");
+                                                    location.reload();
+                                                }
+                                            });
+                                        }
+                                    }
+                            </script>
+                            </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    </div>
+</div>
+
+</body>
+</html>

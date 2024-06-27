@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Login</title>
+    <title>로그인</title>
 
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
@@ -48,7 +48,8 @@
             </div>
             <div class="card-body px-5 pb-5 pt-0">
                 <h4 class="text-dark mb-6 text-center">Welcome</h4>
-                <form action="/auth/login">
+                <form action="/auth/main" method="post">
+                    <!--                <form th:action="@{/auth/login()}">-->
                     <div class="row">
                         <div class="form-group col-md-12 mb-4">
                             <input type="text" class="form-control input-lg" name="id" id="id" placeholder="ID">
@@ -57,7 +58,10 @@
                             <input type="password" class="form-control input-lg" name = "password" id = "password" placeholder="Password">
                         </div>
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-pill col-md-12 ">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-pill col-md-12 ">로그인</button>
+                        </div>
+                        <div class="col-md-13" style="text-align: center">
+                            <a href="auth/signup"> 회원가입 </a>
                         </div>
                     </div>
                 </form>

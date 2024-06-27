@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userDefault}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>상품 상세 정보</title>
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 화면의 전체 높이를 차지하도록 설정 */
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div class="product-details">
+        <div class="form-group">
+            <p>브랜드</p>
+            <p type="text" class="form-control" th:text="${product.brand()}">
+        </div>
+        <div class="form-group">
+            <p>상품 이름</p>
+            <p type="text" class="form-control" th:text="${product.name()}">
+        </div>
+        <div class="form-group">
+            <p>가격</p>
+            <p type="text" class="form-control" th:text="${product.price()}">
+        </div>
+        <div class="form-group">
+            <p>설명</p>
+            <p type="text" class="form-control" th:text="${product.description()}">
+        </div>
+
+        <div class="product-header">
+            <div class="rental">
+                <h2 th:text="'렌탈료 1개월~' + ${prices.size()} + '개월'">렌탈료</h2>
+            </div>
+        </div>
+
+        <div class="rental-period">
+            <label for="rental-period-select">렌탈기간</label>
+            <select id="rental-period-select">
+                <option value="" disabled selected>선택하세요.</option>
+                <option th:each="price, priceStat : ${prices}"
+                        th:text="${priceStat.index + 1} + '개월: ' + ${price}"></option>
+            </select>
+        </div>
+
+        <div class="form-footer mt-6">
+            <button type="submit" class="btn btn-primary btn-pill" id="btnSave">주문하기</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

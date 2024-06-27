@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.notimplement.order.model.dao.OrderMapper">
+
+    <resultMap id="ordersResultMap" type="com.ohgiraffers.notimplement.order.model.dto.OrderDTO">
+        <id property="orderSeq" column="order_seq"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="userSeq" column="user_seq"/>
+    </resultMap>
+
+    <select id="findAllOrder" resultMap="ordersResultMap">
+        SELECT
+            order_seq
+            , order_no
+            , order_status
+            , order_date
+            , user_seq
+        FROM `order`
+    </select>
+
+    <resultMap id="detailsOrderResultMap" type="com.ohgiraffers.notimplement.order.model.dto.DetailOrderDTO">
+        <id property="userSeq" column="user_seq"/>
+        <result property="userName" column="user_name"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userRrn" column="user_rrn"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userAddr" column="user_addr"/>
+        <result property="productName" column="product_name"/>
+        <result property="productSeq" column="product_seq"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="productPrice" column="product_price"/>
+    </resultMap>
+
+    <select id="findAllDetailInfo" resultMap="detailsOrderResultMap">
+        SELECT
+        u.user_seq
+        , u.user_name
+        , u.user_email
+        , u.user_rrn
+        , u.user_phone
+        , u.user_addr
+        , p.product_name
+        , p.product_seq
+        , o.order_date
+        , u.user_addr
+        , p.product_price
+        FROM `order` o
+        JOIN product p ON o.order_seq = p.product_seq
+        JOIN `user` u ON o.user_seq = u.user_seq
+    </select>
+
+    <resultMap id="deliveryOrderResultMap" type="com.ohgiraffers.notimplement.order.model.dto.OrderDeliveryDTO">
+
+        <id property="userSeq" column="user_seq"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="productSeq" column="product_seq"/>
+        <result property="productName" column="product_name"/>
+        <result property="productDescription" column="product_description"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="productPrice" column="product_price"/>
+    </resultMap>
+
+    <select id="findAllOrderDelivery" resultMap="deliveryOrderResultMap">
+        SELECT
+        u.user_seq,
+        o.order_status,
+        o.order_date,
+        o.order_no,
+        p.product_seq,
+        p.product_name,
+        p.product_description,
+        p.reg_date
+        FROM `order` o
+            JOIN product p ON o.order_no = p.product_seq
+            JOIN user u ON o.user_seq = u.user_seq
+        WHERE u.user_id = #{userId}
+    </select>
+</mapper>
+
+
