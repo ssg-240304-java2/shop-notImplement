@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.notimplement.auth.model.dao.authMapper">
+    <resultMap id="userResultMap" type="com.ohgiraffers.notimplement.auth.model.dto.UserDTO">
+        <result property="seq" column="user_seq"/>
+        <result property="name" column="user_name"/>
+        <result property="email" column="user_email"/>
+        <result property="rrn" column="user_rrn"/>
+        <result property="phone" column="user_phone"/>
+        <result property="addr" column="user_addr"/>
+        <result property="reg_date" column="reg_date"/>
+        <result property="update_date" column="update_date"/>
+        <result property="id" column="user_id"/>
+        <result property="password" column="user_pwd"/>
+    </resultMap>
+
+    <!--    해당 쿼리 #{변수명} 은 DTO 와 이름이 맞는 지 확인해야 한다. -->
+    <insert id="signup">
+        INSERT INTO user(user_name, user_email, user_addr ,user_rrn, user_phone, user_id, user_pwd)
+        VALUES (
+        #{ name },
+        #{ email },
+        #{ addr },
+        #{ rrn },
+        #{ phone },
+        #{ id },
+        #{ password }
+        )
+    </insert>
+
+    <select id="findUserById" resultType="_int">
+        select count(*)
+        from user
+        where user_id = #{ id };
+    </select>
+
+    <select id="findAllUser" resultMap="userResultMap">
+        select
+        user_seq,
+        reg_date,
+        user_name,
+        user_email,
+        user_id,
+        user_addr,
+        user_phone,
+        user_rrn,
+        update_date
+        from user
+    </select>
+
+    <delete id="delete" parameterType="_int">
+        delete
+        from user
+        where user_seq = #{ userId }
+    </delete>
