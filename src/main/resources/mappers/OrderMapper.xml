@@ -12,6 +12,19 @@
         <result property="userSeq" column="user_seq"/>
     </resultMap>
 
+    <resultMap id="userResultMap" type="com.ohgiraffers.notimplement.auth.model.dto.UserDTO">
+        <!--        <result property="seq" column="user_seq"/>-->
+        <result property="name" column="user_name"/>
+        <!--        <result property="email" column="user_email"/>-->
+        <!--        <result property="rrn" column="user_rrn"/>-->
+        <result property="phone" column="user_phone"/>
+        <result property="addr" column="user_addr"/>
+        <!--        <result property="reg_date" column="reg_date"/>-->
+        <!--        <result property="update_date" column="update_date"/>-->
+        <!--        <result property="id" column="user_id"/>-->
+        <!--        <result property="password" column="user_pwd"/>-->
+    </resultMap>
+
     <select id="findAllOrder" resultMap="ordersResultMap">
         SELECT
         order_seq
@@ -82,6 +95,72 @@
         JOIN user u ON o.user_seq = u.user_seq
         WHERE u.user_id = #{userId}
     </select>
+
+    <resultMap id="findAllOrderProcessResultMap" type="com.ohgiraffers.notimplement.order.model.dto.ProcessOrderDTO">
+
+        <id property="userAddr" column="user_addr"/>
+        <result property="userPhone" column="user_phone"/>
+    </resultMap>
+
+    <select id="findAllOrderProcess" resultMap="findAllOrderProcessResultMap">
+        SELECT
+        u.user_addr
+        , u.user_phone
+        FROM user
+    </select>
+
+    <select id="getUserData" resultMap="userResultMap">
+        select
+        user_name,
+        user_addr,
+        user_phone
+        from user
+        where user_id = #{userId}
+    </select>
+
+    <insert id="sendOrder">
+        INSERT INTO
+        `order`
+        (order_no, order_status, order_date, user_seq)
+        VALUES(
+        LAST_INSERT_ID(),
+        '결제완료',
+        now(),
+        (select user_seq from user where user_id=#{userId})
+        )
+    </insert>
+
+    <insert id="sendOrderProduct">
+        INSERT INTO
+        order_product (order_seq, product_seq, order_item_name, order_item_price, order_item_amount)
+        VALUES
+        (
+        (select MAX(order_seq) from `order`),
+        #{productSeq},
+        (select product_name from product where product_seq=#{productSeq}),
+        #{productPrice},
+        1
+        )
+    </insert>
+
+    <insert id="payOrder">
+        insert into
+        point (point_amount, point_date, user_seq)
+        values(
+        #{productPrice}*(-1),
+        NOW(),
+        (select user_seq from user where user_id=#{userId})
+        )
+    </insert>
+
+    <update id="reduceStock">
+        update
+        product
+        set
+        product_amount = product_amount - 1
+        where product_seq=#{productSeq}
+    </update>
+
 </mapper>
 
 

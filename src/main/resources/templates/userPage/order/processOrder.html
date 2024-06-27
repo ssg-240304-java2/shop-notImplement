@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>주문서 작성</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: purple;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h1>주문서 작성</h1>
+    <h1>주문서 작성</h1>
+    <h1 style="margin-top: 200px">주문서 작성</h1>
+    <table>
+        <thead>
+        <h1>구매자 성명 : <span th:text="${user.name}"></span></h1>
+        <h1>배송지 <span th:text="${user.addr}"></span></h1>
+        <h1>휴대번호 <span th:text="${user.phone}"></span></h1>
+        <h3>상품명 : <span id="product" th:text="${productById.name()}"></span></h3>
+        <h3>가격 : <span id="price" th:text="${newPrice}"></span>원</h3>
+        <button id="buyBtn">구매하기</button>
+        </thead>
+        <tbody>
+        <!--        <tr th:each="order, index: ${productById}">-->
+        <!--            <td th:text="${user.userAddr}"></td>-->
+
+        <!--        </tr>-->
+        </tbody>
+    </table>
+
+    <script>
+        $('#buyBtn').click(function () {
+            if (confirm("구매하시겠습니까?")) {
+                $.ajax({
+                    url: "/order/sendOrder",
+                    type: "post",
+                    data: {
+                        "productSeq": [[${productById.sequence()}]],
+                        "productPrice": $('#price').text()
+                    },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                });
+            }
+        });
+    </script>
+
+</div>
+</body>
+</html>
