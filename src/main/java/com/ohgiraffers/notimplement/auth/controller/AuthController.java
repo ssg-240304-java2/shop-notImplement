@@ -27,7 +27,14 @@ public class AuthController {
         return "redirect:/index.html";
     }
 
-    @PostMapping("login1")
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+
+        return "redirect:/index.html";
+    }
+
+    @PostMapping("main")
     public String login1(HttpSession session,
                         @RequestParam(value = "id", required = false) String inId,
                         @RequestParam(value = "password", required = false) String inPassword) {
@@ -90,5 +97,7 @@ public class AuthController {
 
         return message;
     }
+
+
 
 }
