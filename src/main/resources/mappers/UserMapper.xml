@@ -31,4 +31,11 @@
             (#{point}*(-1), NOW(), #{userId})
         </if>
     </insert>
+
+    <insert id="pointCharge">
+        INSERT INTO
+        POINT (point_amount, point_date, user_seq)
+        VALUES
+        (#{point}, NOW(), #{userId})
+    </insert>
 </mapper>
