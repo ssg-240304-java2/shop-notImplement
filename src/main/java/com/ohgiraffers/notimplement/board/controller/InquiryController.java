@@ -2,6 +2,8 @@ package com.ohgiraffers.notimplement.board.controller;
 
 import com.ohgiraffers.notimplement.board.model.dto.BoardDTO;
 import com.ohgiraffers.notimplement.board.model.service.InquiryService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +31,14 @@ public class InquiryController {
     // 1:1문의등록(사용자) requestbody->modelAttribute로 수정
     @PostMapping("/inquiry")
     @ResponseBody
-    public String saveInquiry(@ModelAttribute BoardDTO boardDTO) {
+    public String saveInquiry(HttpServletRequest request,@ModelAttribute BoardDTO boardDTO) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
+        boardDTO.setUserId(userId);
         log.info("InquiryController : {} ===========> ",boardDTO.toString());
         boolean isSave = inquiryService.saveInquiry(boardDTO);
-        return "등록결과 : " + isSave;
+        return "redirect:/user/inquiry";
     }
-
 
     // 1:1문의 내용 수정
     @PutMapping("/inquiry")
@@ -44,6 +48,7 @@ public class InquiryController {
     }
 
     @DeleteMapping("/inquiry/{boardSeq}")
+    @ResponseBody
     public String deleteInquiry(@PathVariable int boardSeq) {
         boolean isDelete = inquiryService.deleteInquiry(boardSeq);
         return "삭제결과 : " + isDelete;
@@ -53,7 +58,7 @@ public class InquiryController {
     @GetMapping("/admin/inquiry")
     public String showAdminInquiry(@RequestParam(required = false) String status, @RequestParam(required = false) String strDate, @RequestParam(required = false) String endDate, Model model) {
 
-        List<BoardDTO> boardList = inquiryService.showBoardList(status, strDate,endDate);
+        List<BoardDTO> boardList = inquiryService.showBoardList(status, strDate,endDate,null);
         model.addAttribute("boardList",boardList);
 
         return "adminPage/board/inquiryList";
@@ -61,9 +66,12 @@ public class InquiryController {
 
     // 목록조회(사용자)
     @GetMapping("/user/inquiry")
-    public String showUserInquiry(@RequestParam(required = false) String status, @RequestParam(required = false) String strDate, @RequestParam(required = false) String endDate, Model model) {
-        List<BoardDTO> boardList = inquiryService.showBoardList(status, strDate,endDate);
-        return boardList.toString();
+    public String showUserInquiry(HttpServletRequest request, @RequestParam(required = false) String status, @RequestParam(required = false) String strDate, @RequestParam(required = false) String endDate, Model model) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
+        List<BoardDTO> boardList = inquiryService.showBoardList(status, strDate,endDate,userId);
+        model.addAttribute("boardList",boardList);
+        return "userPage/board/inquiryList";
     }
 
     // 상세조회
@@ -86,6 +94,7 @@ public class InquiryController {
 
 
     @PostMapping("/admin/inquiry/answer")
+    @ResponseBody
     public String saveInquiryAnswer(@ModelAttribute BoardDTO boardDTO) {
         boolean isSave = inquiryService.saveInquiryAnswer(boardDTO);
         return "redirect:/admin/inquiry";

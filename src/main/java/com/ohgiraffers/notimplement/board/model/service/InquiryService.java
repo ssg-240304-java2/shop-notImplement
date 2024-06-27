@@ -34,11 +34,13 @@ public class InquiryService {
         return deleteResult != 0;
     }
 
-    public List<BoardDTO> showBoardList(String status, String strDate,String endDate) {
+    public List<BoardDTO> showBoardList(String status, String strDate,String endDate,String userId) {
         Map<String,String> map = new HashMap<>();
         map.put("status", status);
         map.put("strDate", strDate);
         map.put("endDate", endDate);
+        map.put("userId", userId);
+
         return inquiryMapper.showBoardList(map);
     }
 

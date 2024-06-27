@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userMyPageDefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th class="text-center">NO</th>
+                <th class="text-center">문의 카테고리</th>
+                <th class="text-center">문의 제목</th>
+                <th class="text-center">작성자 ID</th>
+                <th class="text-center">문의 등록일</th>
+                <th class="text-center">답변 상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board, index : ${boardList}">
+                <td class="text-center" th:text="${index.count}">1</td>
+                <td class="text-center" th:text="${board.getBoardCategory()}">Lucia</td>
+                <td class="text-center"><a th:href="@{/inquiry/{boardSeq}(boardSeq=${board.getBoardSeq()})}">[[${board.getBoardTitle()}]]</a></td>
+                <td class="text-center" th:text="${board.getUserId()}">@Lucia</td>
+                <td class="text-center" th:text="${board.getRegDate()}"></td>
+                <td class="text-center" th:if="${board.getAnswer() == null}">답변 대기</td>
+                <td class="text-center" th:unless="${board.getAnswer() == null}">답변 완료</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary m-3" onclick="window.location.href='/inquiry/write'">문의 등록</button>
+        </div>
+    </div>
+</body>
+</html>

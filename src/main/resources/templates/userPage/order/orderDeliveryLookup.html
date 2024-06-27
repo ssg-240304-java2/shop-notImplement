@@ -2,7 +2,7 @@
 <html
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{common/layouts/userDefault}">
+        layout:decorate="~{common/layouts/userMyPageDefault}">
 <head>
   <meta charset="UTF-8">
   <title>주문 배송 조회</title>
@@ -29,8 +29,9 @@
   </style>
 </head>
 <body>
-<div class="container" layout:fragment="content">
-    <h1>주문배송조회시 주문번호와 상태를 정확히 확인하세요. 배송추적링크를 통해 실시간으로 위치를 확인할 수 있습니다</h1>
+<div layout:fragment="content">
+    <h3>주문배송조회시 주문번호와 상태를 정확히 확인하세요.<br> 배송추적링크를 통해 실시간으로 위치를 확인할 수 있습니다</h3>
+    <hr>
   <table>
       <thead>
       <th>유저seq</th>

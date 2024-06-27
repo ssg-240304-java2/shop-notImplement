@@ -2,6 +2,7 @@ package com.ohgiraffers.notimplement.auth.controller;
 
 import com.ohgiraffers.notimplement.auth.model.dto.UserDTO;
 import com.ohgiraffers.notimplement.auth.model.service.UserService;
+import com.ohgiraffers.notimplement.board.model.service.InquiryService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ import java.util.List;
 public class AuthController {
 
     private final UserService userService;
+    private final InquiryService inquiryService;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, InquiryService inquiryService) {
         this.userService = userService;
+        this.inquiryService = inquiryService;
     }
 
     @GetMapping("/login")
@@ -37,14 +40,17 @@ public class AuthController {
     @PostMapping("main")
     public String login1(HttpSession session,
                         @RequestParam(value = "id", required = false) String inId,
-                        @RequestParam(value = "password", required = false) String inPassword) {
-        if("1".equals(inId) && "1".equals(inPassword)) {
+                        @RequestParam(value = "password", required = false) String inPassword,
+                         Model model) {
+        if("admin".equals(inId) && "admin".equals(inPassword)) {
+            int countInquiry = inquiryService.getCountNotAnswer();
+            model.addAttribute("countInquiry", countInquiry);
             return "adminPage/main";
         }
         else if(userService.login(inId, inPassword)) {
             session.setAttribute("id", inId);
             session.setAttribute("password", inPassword);
-            return "userPage/main";
+            return "redirect:/user/product";
         } else {
             return "redirect:/index.html";
         }

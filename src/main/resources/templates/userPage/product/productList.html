@@ -51,60 +51,62 @@
             background-color: purple; /* 호버 시 진한 녹색 */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 크게 */
         }
+        .mt-mb-5{
+            margin-top: 50px!important;
+            margin-bottom: 50px;
+            margin-left: 50px;
+        }
     </style>
 </head>
 <body>
-<div layout:fragment="content" class="content">
-    <div class="content">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h2>상품 목록</h2>
-                    </div>
-                    <div class="card-body">
-                        <table id="productsTable" class="table table-hover table-product" style="width:100%">
-                            <colgroup>
-                                <col span="1" style="width: 3%">
-                                <col span="1" style="width: 7%">
-                                <col span="1" style="width: 22%">
-                                <col span="1" style="width: 9%">
-                                <col span="1" style="width: 3%">
-                                <col span="1" style="width: 10%">
-                                <col span="1" style="width: 13%">
-                                <col span="1" style="width: 13%">
-                                <col span="1" style="width: 10%">
-                            </colgroup>
+<div layout:fragment="content">
 
-                            <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>브랜드</th>
-                                <th>상품명</th>
-                                <th>기본 가격</th>
-                                <th>수량</th>
-                                <th>상태</th>
-                                <th>등록일</th>
-                            </tr>
-                            </thead>
+    <div class="col-sm-10 mt-mb-5">
+        <div class="card card-default">
+            <div class="card-header">
+                <h2>상품 목록</h2>
+            </div>
+            <div class="card-body">
+                <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                    <colgroup>
+                        <col span="1" style="width: 3%">
+                        <col span="1" style="width: 7%">
+                        <col span="1" style="width: 22%">
+                        <col span="1" style="width: 9%">
+                        <col span="1" style="width: 3%">
+                        <col span="1" style="width: 10%">
+                        <col span="1" style="width: 13%">
+                        <col span="1" style="width: 13%">
+                        <col span="1" style="width: 10%">
+                    </colgroup>
 
-                            <tbody>
-                            <tr th:each="product : ${products}">
-                                <td th:text="${product.sequence()}" class="text-md-center"></td>
-                                <td th:text="${product.brand()}"></td>
-                                <td th:text="${product.name()}"></td>
-                                <td th:text="${product.price()}" class="text-md-center"></td>
-                                <td th:text="${product.amount()}" class="text-md-center"></td>
-                                <td th:text="${product.status()}"></td>
-                                <td th:text="${product.regDate()}"></td>
-                                <td>
-                                    <a class="update-button" th:href="'/user/product/' + ${product.sequence()}">보기</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>브랜드</th>
+                        <th>상품명</th>
+                        <th>기본 가격</th>
+                        <th>수량</th>
+                        <th>상태</th>
+                        <th>등록일</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="product, index : ${products}">
+                        <td th:text="${index.count}" class="text-md-center"></td>
+                        <td th:text="${product.brand()}"></td>
+                        <td th:text="${product.name()}"></td>
+                        <td th:text="${product.price()}" class="text-md-center"></td>
+                        <td th:text="${product.amount()}" class="text-md-center"></td>
+                        <td th:text="${product.status()}"></td>
+                        <td th:text="${product.regDate()}"></td>
+                        <td>
+                            <a class="update-button" th:href="'/user/product/' + ${product.sequence()}">보기</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

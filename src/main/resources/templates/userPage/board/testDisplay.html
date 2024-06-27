@@ -1,76 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userMyPageDefault}">
 <head>
     <meta charset="UTF-8">
-    <title>Summernote</title>
+    <title>1:1문의</title>
 
 </head>
 <body>
-
-    문의 제목 : <p th:text="${boardDTO.getBoardTitle()}"></p><br>
-    문의 구분 : <p th:text="${boardDTO.getBoardCategory()}"></p><br>
-    문의 내용 작성한 사용자 Id : <p th:text="${boardDTO.userId}"></p><br>
-    문의 내용
-    <div th:utext="${boardDTO.getBoardContent()}"></div>
-<button onclick="location.href='/inquiry/write'">목록으로</button>
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote({
-            lang: 'ko-KR',
-            callbacks: {
-                onImageUpload : function(files, editor, welEditable) {
-                    // 다중 이미지 처리를 위해 for문을 사용했습니다.
-                    for (var i = 0; i < files.length; i++) {
-                        imageUploader(files[i], this);
+<div layout:fragment="content">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th class="text-center">문의 제목</th>
+            <td th:text="${boardDTO.getBoardTitle()}"></td>
+        </tr>
+        <tr>
+            <th class="text-center">문의 카테고리</th>
+            <td th:text="${boardDTO.getBoardCategory()}"></td>
+        </tr>
+        <tr>
+            <th class="text-center">작성자</th>
+            <td th:text="${boardDTO.userId}"></td>
+        </tr>
+        <tr>
+            <th class="text-center">문의 내용</th>
+            <td>
+                <div class="col-md-8" th:utext="${boardDTO.getBoardContent()}"></div>
+            </td>
+        </tr>
+        <tr th:if="${boardDTO.getAnswer() != null}">
+            <th class="text-center">문의 답변</th>
+            <td>
+                <div class="col-md-8" th:utext="${boardDTO.getAnswer()}"></div>
+            </td>
+        </tr>
+        </thead>
+    </table>
+    <input type="hidden" id="boardSeq" th:value="${boardDTO.getBoardSeq()}">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary m-3" onclick="location.href='/user/inquiry'">목록으로</button>
+        <button type="button" class="btn btn-danger m-3" onclick="deleteBoard();" th:if="${boardDTO.getAnswer() == null}">삭제하기</button>
+    </div>
+    <script>
+        function deleteBoard(){
+            let boardSeq = $('#boardSeq').val();
+            if(confirm()){
+                $.ajax({
+                    url: "/inquiry/"+boardSeq,
+                    type: "delete",
+                    data: {
+                        "boardSeq":boardSeq,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        alert("삭제되었습니다.");
+                        window.location.href='/user/inquiry';
+                    },
+                    error:function(error) {
+                        console.log(error);
                     }
-                }
+                })
             }
-        });
-    });
+        }
 
-    function imageUploader(file, el) {
-        var formData = new FormData();
-        formData.append('file', file);
+    </script>
+</div>
 
-        $.ajax({
-            data : formData,
-            type : "POST",
-            // url은 자신의 이미지 업로드 처리 컨트롤러 경로로 설정해주세요.
-            url : '/image-upload',
-            contentType : false,
-            processData : false,
-            enctype : 'multipart/form-data',
-            success : function(data) {
-                $(el).summernote('insertImage', "http://ssg-java2.iptime.org/notimpl"+data, function($image) {
-                    $image.css('width', "100%");
-                });
-                // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
-                console.log(data);
-            }
-        });
-    }
 
-    $('#send-post-2').click(function() {
-        const content = $('#summernote').summernote('code');
-        // alert(message);
-        $.ajax({
-            url: "/inquiry",
-            type: "post",
-            data: {
-                "boardTitle": $('#boardTitle').val(),
-                "boardContent":content,
-                "boardCategory" : $('#boardCategory').val(),
-                "userId" : $('#userId').val()
-            },
-            success: function(data) {
-                console.log(data);
-                alert("등록성공");
-            },
-            error:function(error) {
-                console.log(error);
-            }
-        })
-    });
-</script>
 </body>
 </html>
