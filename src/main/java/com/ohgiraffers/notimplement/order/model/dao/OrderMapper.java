@@ -14,5 +14,5 @@ public interface OrderMapper {
 
     List<DetailOrderDTO> findAllDetailInfo();
 
-    List<OrderDeliveryDTO> findAllOrderDelivery();
+    List<OrderDeliveryDTO> findAllOrderDelivery(String userId);
 }
