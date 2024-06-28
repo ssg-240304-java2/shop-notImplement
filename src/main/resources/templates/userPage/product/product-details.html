@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>상품 상세 정보</title>
     <style>
-        .content {
+        .content-product {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,52 +16,55 @@
     </style>
 </head>
 <body>
-<div layout:fragment="content" class="content">
-    <form action="/order/orderProcess">
-        <div class="product-details">
-            <input type="hidden" name="productSequence" th:value="${product.sequence()}">
-            <input type="hidden" name="month" id="month">
+<div layout:fragment="content">
+    <div  class="content-product">
+        <form action="/order/orderProcess">
+            <div class="product-details">
+                <input type="hidden" name="productSequence" th:value="${product.sequence()}">
+                <input type="hidden" name="month" id="month">
 
-            <div class="form-group">
-                <p>브랜드</p>
-                <p type="text" class="form-control" th:text="${product.brand()}">
-            </div>
+                <div class="form-group">
+                    <p>브랜드</p>
+                    <p type="text" class="form-control" th:text="${product.brand()}">
+                </div>
 
-            <div class="form-group">
-                <p>상품 이름</p>
-                <p type="text" class="form-control" th:text="${product.name()}">
-            </div>
+                <div class="form-group">
+                    <p>상품 이름</p>
+                    <p type="text" class="form-control" th:text="${product.name()}">
+                </div>
 
-            <div class="form-group">
-                <p>가격</p>
-                <p type="text" class="form-control" th:text="${product.price()}">
-            </div>
+                <div class="form-group">
+                    <p>가격</p>
+                    <p type="text" class="form-control" th:text="${product.price()}">
+                </div>
 
-            <div class="form-group">
-                <p>설명</p>
-                <p type="text" class="form-control" th:text="${product.description()}">
-            </div>
+                <div class="form-group">
+                    <p>설명</p>
+                    <p type="text" class="form-control" th:text="${product.description()}">
+                </div>
 
-            <div class="product-header">
-                <div class="rental">
-                    <h2 th:text="'렌탈료 1개월~' + ${prices.size()} + '개월'">렌탈료</h2>
+                <div class="product-header">
+                    <div class="rental">
+                        <h2 th:text="'렌탈료 1개월~' + ${prices.size()} + '개월'">렌탈료</h2>
+                    </div>
+                </div>
+
+                <div class="rental-period">
+                    <label for="rental-period-select">렌탈기간</label>
+                    <select id="rental-period-select" name="month" onchange="getMonth()">
+                        <option value="month" disabled selected>선택하세요.</option>
+                        <option th:each="price, priceStat : ${prices}"
+                                th:text="${priceStat.index + 1} + '개월: ' + ${price}"></option>
+                    </select>
+                </div>
+
+                <div class="form-footer mt-6">
+                    <button type="submit" class="btn btn-primary btn-pill" id="btnRental">렌탈하기</button>
                 </div>
             </div>
+        </form>
+    </div>
 
-            <div class="rental-period">
-                <label for="rental-period-select">렌탈기간</label>
-                <select id="rental-period-select" name="month" onchange="getMonth()">
-                    <option value="month" disabled selected>선택하세요.</option>
-                    <option th:each="price, priceStat : ${prices}"
-                            th:text="${priceStat.index + 1} + '개월: ' + ${price}"></option>
-                </select>
-            </div>
-
-            <div class="form-footer mt-6">
-                <button type="submit" class="btn btn-primary btn-pill" id="btnRental">렌탈하기</button>
-            </div>
-        </div>
-    </form>
 
     <script>
         function getMonth() {

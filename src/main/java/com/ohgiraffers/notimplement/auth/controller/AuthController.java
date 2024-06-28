@@ -65,7 +65,7 @@ public class AuthController {
             session.setAttribute("password", inPassword);
             return "redirect:/user/product";
         } else {
-            return "redirect:/main/index.html";
+            return "redirect:/user/login";
         }
     }
 

@@ -47,11 +47,6 @@
 <div layout:fragment="content">
     <h1>금액 입력</h1>
     <div>
-        <input type="text" placeholder="카드번호를 입력하세요">
-        <input type="text" placeholder="월">/<input type="text" placeholder="연">
-        <input type="text" placeholder="CVC">
-    </div>
-    <div>
         <input id="point" type="text" placeholder="충전할 금액을 입력하세요">
         현재 잔액 : <span id="availablePoint" th:value="${availablePoint}" th:text="${availablePoint}"></span>
     </div>

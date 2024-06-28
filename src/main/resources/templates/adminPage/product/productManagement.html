@@ -90,8 +90,8 @@
                             </thead>
 
                             <tbody>
-                            <tr th:each="product : ${products}">
-                                <td th:text="${product.sequence()}" class="text-md-center"></td>
+                            <tr th:each="product, index: ${products}">
+                                <td th:text="${index.count}" class="text-md-center"></td>
                                 <td th:text="${product.brand()}"></td>
                                 <td th:text="${product.name()}"></td>
                                 <td th:text="${product.price()}" class="text-md-center"></td>
