@@ -34,8 +34,8 @@
                             </tr>
                           </thead>
                             <tbody>
-                            <tr th:each="user : ${userList}">
-                                <td th:text="${user.seq}"></td>
+                            <tr th:each="user,index : ${userList}">
+                                <td th:text="${index.count}"></td>
                                 <td th:text="${user.reg_date}"></td>
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.id}"></td>

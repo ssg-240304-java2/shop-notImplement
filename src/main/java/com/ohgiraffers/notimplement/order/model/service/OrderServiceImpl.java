@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDeliveryDTO> findAllOrderDelivery(String userId) {
-        return orderMapper.findAllOrderDelivery();
+        return orderMapper.findAllOrderDelivery(userId);
     }
 
     @Override

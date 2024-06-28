@@ -62,7 +62,7 @@
         , u.user_addr
         , p.product_price
         FROM `order` o
-        JOIN product p ON o.order_seq = p.product_seq
+        JOIN product p ON o.user_seq = p.product_seq
         JOIN `user` u ON o.user_seq = u.user_seq
     </select>
 
