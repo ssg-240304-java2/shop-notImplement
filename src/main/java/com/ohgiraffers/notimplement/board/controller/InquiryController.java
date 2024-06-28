@@ -105,4 +105,5 @@ public class InquiryController {
         int count = inquiryService.getCountNotAnswer();
         return "미답변 문의 갯수 : " + count + "개";
     }
+
 }

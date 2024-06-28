@@ -9,7 +9,7 @@
     <div id="sidebar" class="sidebar sidebar-with-footer">
         <!-- Aplication Brand -->
         <div class="app-brand">
-            <a href="#">
+            <a href="/auth/adminMain">
                 <img src="../../../images/logo.png" alt="NotImplement">
                 <span class="brand-name">NotImplement</span>
             </a>
@@ -20,7 +20,7 @@
             <ul class="nav sidebar-inner" id="sidebar-menu">
                 <li class="active">
                     <a class="sidenav-item-link" href="/admin/main">
-                        <i class="mdi mdi-briefcase-account-outline"></i>
+                        <i class="bi bi-house-door-fill"></i>
                         <span class="nav-text">Home</span>
                     </a>
                 </li>
@@ -29,7 +29,7 @@
         <li class="has-sub">
           <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#users"
              aria-expanded="false" aria-controls="users">
-            <i class="mdi mdi-email"></i>
+              <i class="bi bi-people"></i>
             <span class="nav-text">회원</span> <b class="caret"></b>
           </a>
           <ul class="collapse" id="users" data-parent="#sidebar-menu">
@@ -85,11 +85,6 @@
                   <span class="nav-text">상세정보조회</span>
                 </a>
               </li>
-              <li>
-                <a class="sidenav-item-link" href="#">
-                  <span class="nav-text">주문렌탈/상태조회</span>
-                </a>
-              </li>
             </div>
           </ul>
         </li>
@@ -109,16 +104,6 @@
                                     <span class="nav-text">배송조회/관리</span>
                                 </a>
                             </li>
-                            <li>
-                                <a class="sidenav-item-link" href="email-details.html">
-                                    <span class="nav-text">환불관리</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="sidenav-item-link" href="email-compose.html">
-                                    <span class="nav-text">반납 관리</span>
-                                </a>
-                            </li>
                         </div>
                     </ul>
                 </li>
@@ -136,11 +121,6 @@
               <li>
                 <a class="sidenav-item-link" th:href="@{/admin/inquiry}">
                   <span class="nav-text">1:1 문의 관리</span>
-                </a>
-              </li>
-              <li>
-                <a class="sidenav-item-link" href="email-details.html">
-                  <span class="nav-text">상품리뷰 관리</span>
                 </a>
               </li>
             </div>
