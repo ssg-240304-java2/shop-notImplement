@@ -87,6 +87,10 @@
             background-color: #8a2be2;
             color: #ffffff; /* 글자색을 흰색으로 설정 */
         }
+        .mt-mb-5{
+            margin-top: 110px!important;
+            margin-bottom: 50px;
+        }
     </style>
 </head>
 <script>
@@ -96,7 +100,8 @@
 
 </script>
 <body>
-<div layout:fragment="content" class="content">
+<div layout:fragment="content" >
+    <div class="mt-mb-5">
     <h2>회원가입</h2>
     <form id="signupForm" action="/auth/signup" method="post">
         <div class="form-group">
@@ -196,7 +201,7 @@
     </form>
     <p class="text-center mt-3">이미 계정이 있으신가요? <a href="/auth/login" class="text-blue">로그인</a></p>
 </div>
-
+</div>
 <script>
     $(document).ready(function() {
         $('#signup').click(function(e) {
