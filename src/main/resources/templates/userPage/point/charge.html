@@ -1,49 +1,50 @@
 <!doctype html>
 <html
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{common/layouts/userMyPageDefault}">
 <head>
     <meta charset="UTF-8">
     <title>적립금 충전</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <style>
-        html {
-            background: lightgray;
-        }
+<!--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
+<!--    <style>-->
+<!--        html {-->
+<!--            background: lightgray;-->
+<!--        }-->
 
-        body {
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-        }
+<!--        body {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            margin: 0;-->
+<!--        }-->
 
-        header {
-            padding: 10px;
-            background: white;
-            width: 100vw;
-            height: 60px;
-            border-bottom: 1px solid lightgrey;
-        }
+<!--        header {-->
+<!--            padding: 10px;-->
+<!--            background: white;-->
+<!--            width: 100vw;-->
+<!--            height: 60px;-->
+<!--            border-bottom: 1px solid lightgrey;-->
+<!--        }-->
 
-        .container {
-            margin: 0 auto;
-            background: white;
-            width: 50vw;
-            height: 100vh;
-            padding: 20px;
-        }
+<!--        .container {-->
+<!--            margin: 0 auto;-->
+<!--            background: white;-->
+<!--            width: 50vw;-->
+<!--            height: 100vh;-->
+<!--            padding: 20px;-->
+<!--        }-->
 
-        h1 {
-            margin: 0;
-        }
-    </style>
+<!--        h1 {-->
+<!--            margin: 0;-->
+<!--        }-->
+<!--    </style>-->
 </head>
 <body>
 
 <header>
     <h1>적립금 충전</h1>
 </header>
-<div class="container">
+<div layout:fragment="content">
     <h1>금액 입력</h1>
     <div>
         <input type="text" placeholder="카드번호를 입력하세요">
